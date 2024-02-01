@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Abhaya_Libre } from "next/font/google";
 import "./globals.css";
 import AuthSession from "@/providers/sessionProvider";
 import Script from "next/script";
 import React from "react";
 import NavBar from "../components/Layout/NavBar";
-
-// const inter = Inter({ subsets: ["latin"] });
-
-const abhayaLibre = Abhaya_Libre({
-  subsets: ["latin"],
-  weight: ["500"],
-});
 
 const KAKAO_SDK_URL = "https://developers.kakao.com/sdk/js/kakao.js";
 export const metadata: Metadata = {
@@ -34,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex justify-center h-screen">
+        <div className="flex justify-center">
           <div className="w-full max-w-screen-md pt-10 bg-beige-100">
             <AuthSession>
               <div className="px-4">{children}</div>

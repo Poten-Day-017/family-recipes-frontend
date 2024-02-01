@@ -8,7 +8,7 @@ import SampleMainImage from "@/assets/sample-main-image1.png";
 export default function Home() {
   // return <KakaoButton />;
   return (
-    <div className="h-screen">
+    <div className="h-full">
       <Header />
       <div className="py-5 flex flex-col gap-2.5">
         <RecipeCard
