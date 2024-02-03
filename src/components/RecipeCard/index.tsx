@@ -7,6 +7,7 @@ interface Props {
   mainImageSrc: string | StaticImageData;
   title: string;
   subTitle: string;
+  origin: string;
   tags: string[];
   isNew: boolean;
   isPrivate: boolean;
@@ -23,7 +24,7 @@ const Private = () => {
 
 const Public = () => {
   return (
-    <div className="bg-main-black inline-flex px-2.5 py-2 rounded-[3px] gap-[5px] justify-center items-center">
+    <div className="bg-main-black inline-flex px-2.5 h-5 rounded-[3px] gap-[5px] justify-center items-center">
       <UnLockIcon />
       <span className="text-[10px] text-white">공개</span>
     </div>
@@ -33,6 +34,7 @@ const Public = () => {
 const RecipeCard: FC<Props> = ({
   mainImageSrc,
   isPrivate,
+  origin,
   title,
   subTitle,
   tags,
@@ -50,6 +52,12 @@ const RecipeCard: FC<Props> = ({
         <p className="text-beige-700 text-[12px]">{subTitle}</p>
         <div className="bg-beige-400 w-full h-[0.5px] my-3" />
         <div className="flex gap-1.5 flex-wrap">
+          <div
+            key={origin}
+            className="border text-[12px] rounded-[3px] bg-main-green-2 px-2 h-7 inline-flex justify-center items-center border-main-black"
+          >
+            {origin}
+          </div>
           {tags.map((tag) => (
             <div
               key={tag}

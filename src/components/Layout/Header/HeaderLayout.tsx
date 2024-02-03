@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 // import { usePathname } from "next/navigation";
 // import { NAV_LIST } from "@/components/Layout/NavBar";
 
@@ -11,7 +11,11 @@ const abhayaLibre = Abhaya_Libre({
   weight: ["500"],
 });
 
-const Header = () => {
+interface Props {
+  headerTitle: string;
+}
+
+const Header: FC<Props> = ({ headerTitle }) => {
   // const pathname = usePathname();
   // console.log(pathname);
   return (
@@ -23,7 +27,7 @@ const Header = () => {
       flex justify-center items-center 
       py-4 ${abhayaLibre.className}`}
     >
-      <h1 className="text-[30px] text-text-black">My Family Recipe Book</h1>
+      <h1 className="text-[30px] text-text-black">{headerTitle}</h1>
     </div>
   );
 };

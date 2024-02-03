@@ -7,13 +7,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, Props>(
+const InputText = forwardRef<HTMLInputElement, Props>(
   ({ required, title, explanation, error, ...props }, ref) => {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col pt-4">
         {title && (
           <div className="text-[#151B1E] text-xs font-bold pb-2">
-            레시피 제목
+            {title}
             {required && <span className="text-[#F7744C]"> *</span>}
           </div>
         )}
@@ -24,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           px-[0.5rem]
           bg-[#E1E2DE]
            rounded-tr-[5px]
+           rounded-tl-[5px]
            border-b 
            ${error ? "border-b-2 border-[#EB200D]" : "border-[#BEC0BB]"}
            placeholder:text-[#9FA19D]
@@ -33,7 +34,12 @@ const Input = forwardRef<HTMLInputElement, Props>(
           ref={ref}
           {...props}
         />
-        {explanation && (
+        {error && (
+          <span className="text-main-error text-xs font-medium self-start pt-3">
+            {error}
+          </span>
+        )}
+        {explanation && !error && (
           <span className="text-[#9FA19D] text-xs font-medium self-end pt-3">
             {explanation}
           </span>
@@ -43,6 +49,6 @@ const Input = forwardRef<HTMLInputElement, Props>(
   },
 );
 
-Input.displayName = "Input";
+InputText.displayName = "InputText";
 
-export default Input;
+export default InputText;

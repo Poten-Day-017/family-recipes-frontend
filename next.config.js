@@ -13,6 +13,9 @@ const nextConfig = {
     });
     return config;
   },
+  images: {
+    domains: ["www.daedaesonson.site"],
+  },
 };
 
 module.exports = nextConfig;

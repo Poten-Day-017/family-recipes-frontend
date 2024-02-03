@@ -25,5 +25,9 @@
     font-display: swap;
 }
 
+.current-fill-svg  path{
+    fill: currentColor;
+}
+
 
 

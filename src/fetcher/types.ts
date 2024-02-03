@@ -41,3 +41,12 @@ export interface RecipeDetailRes {
   ingredientList: Ingredient[];
   procedureList: ProcedureList[];
 }
+
+export interface Category {
+  name: string;
+  code: string;
+}
+
+export interface CategoryRes {
+  categoryList: Category;
+}
