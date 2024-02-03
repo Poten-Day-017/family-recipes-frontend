@@ -29,7 +29,7 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthSession>
-            <div className="flex justify-center">
+            <div className="flex justify-center h-screen">
               <div className="w-full max-w-screen-md pt-10 bg-beige-100">
                 <div className="px-4">{children}</div>
                 <NavBar />
