@@ -29,11 +29,10 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthSession>
-            <div className="flex justify-center h-screen">
-              <div className="w-full max-w-screen-md pt-10 bg-beige-100">
-                <div className="px-4">{children}</div>
+            <div className="flex justify-center h-screen overflow-hidden">
+              <div className="w-full h-screen overflow-scroll max-w-screen-md bg-beige-100 text-main-black">
+                <div className="px-4 h-[calc(100vh-58px)]">{children}</div>
                 <NavBar />
-                <div className="w-full h-[85px]" />
               </div>
             </div>
             <Script src={KAKAO_SDK_URL} />

@@ -64,6 +64,7 @@ const NewRecipePage = () => {
           <VideoField />
         </form>
       </FormProvider>
+      <div className="h-[58px]"></div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ interface Recipe {
   categoryName: string; // 카테고리 명
   capacity: number; // 레시피 기준 인원
   totalOpenYn: string; // 레시피 공개 여부
+  recipeId: string;
 }
 
 export interface RecipeListRes {

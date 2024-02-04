@@ -1,16 +1,31 @@
 "use client";
 
 import React from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-
+import KakaoLogo from "@/assets/kakao-logo.svg";
+import { signIn, useSession } from "next-auth/react";
+// import { useRouter } from "next/navigation";
 const KakaoButton = () => {
   const { data: session } = useSession();
+  // const router = useRouter();
   console.log(session);
+
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/recipes");
+  //   }
+  // }, [router, session]);
+
   return (
-    <div>
-      <button onClick={() => signIn("kakao")}>카카오로 시작하기</button>
-      <button onClick={() => signOut()}>로그아웃</button>
-    </div>
+    <button
+      onClick={() => signIn("kakao")}
+      className="w-full h-[50px] text-sm bg-kakao rounded-base
+        flex justify-center items-center
+        gap-2.5
+        "
+    >
+      <KakaoLogo />
+      카카오로 로그인
+    </button>
   );
 };
 

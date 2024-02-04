@@ -11,7 +11,7 @@ const abhayaLibre = Abhaya_Libre({
   weight: ["500"],
 });
 
-const Header = () => {
+const Header = ({ text }: { text: string }) => {
   // const pathname = usePathname();
   // console.log(pathname);
   return (
@@ -23,7 +23,7 @@ const Header = () => {
       flex justify-center items-center 
       py-4 ${abhayaLibre.className}`}
     >
-      <h1 className="text-[30px] text-text-black">My Family Recipe Book</h1>
+      <h1 className="text-[30px] text-text-black">{text}</h1>
     </div>
   );
 };

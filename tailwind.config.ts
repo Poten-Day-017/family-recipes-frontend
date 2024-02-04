@@ -29,9 +29,13 @@ const config: Config = {
         "beige-600": "#767874",
         "beige-100": "#F5F6F2",
         beige: "#EEF0EB",
+        kakao: "#FEE500",
       },
       fontFamily: {
         pretendard: ["Pretendard"],
+      },
+      borderRadius: {
+        base: "5px",
       },
     },
   },

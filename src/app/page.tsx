@@ -1,80 +1,47 @@
-// import KakaoButton from "@/components/KakaoButton";
-
-import Header from "@/components/Layout/Header";
 import React from "react";
-import RecipeCard from "@/components/RecipeCard";
-import SampleMainImage from "@/assets/sample-main-image1.png";
-import { getRecipes } from "@/fetcher";
-import CookingBookIcon from "@/assets/cooking-book-icon.svg";
+import KakaoButton from "@/components/KakaoButton";
+import Link from "next/link";
+import OnboardingLogo from "@/assets/onbording-logo.svg";
+import HandWriting from "@/assets/onboarding-text.svg";
+import HandLine from "@/assets/line.svg";
 
-// "recipeId": 2,
-//     "title": "아빠의 김치볶음밥",
-//     "origin": "아빠",
-//     "content": "레시피 소개 샘플2",
-//     "category": "CTGR_001",
-//     "categoryName": "탕/면",
-//     "capacity": 1,
-//     "totalOpenYn": "Y",
-//     "cookingImageUrl": "http://www.daedaesonson.site/static/sample8.jpeg"
+import localFont from "next/font/local";
 
-export default async function Home() {
-  const { recipeList } = await getRecipes({ page: 1 });
-  console.log(recipeList);
+const NamnumSquareFont = localFont({
+  src: "../fonts/NanumRound.ttf",
+  display: "swap",
+});
 
-  // return <KakaoButton />;
+export default function Home() {
   return (
-    <div className="h-full">
-      <Header />
-      <div className="py-5 h-full flex flex-col gap-2.5">
-        {recipeList.length === 0 && (
-          <div className="pt-40">
-            <div className="w-full h-full flex flex-col justify-center items-center text-center">
-              <CookingBookIcon />
-              <h3 className="text-[20px] font-bold">리스트가 아직 없어요!</h3>
-              <p className="text-sm text-beige-700">
-                우리 가족만의 레시피를 작성하고 <br /> 추억을 간직해보세요
-              </p>
-              <button className="flex h-[50px] w-full justify-center items-center mt-4 rounded-[5px] border border-main-orange text-main-orange font-bold text-sm">
-                레시피 작성하기
-              </button>
-            </div>
-          </div>
-        )}
-        {recipeList.map(
-          (
-            {
-              title,
-              origin,
-              content,
-
-              categoryName,
-              capacity,
-              totalOpenYn,
-              cookingImageUrl,
-            },
-            idx,
-          ) => (
-            <RecipeCard
-              key={title + idx}
-              mainImageSrc={cookingImageUrl}
-              title={title}
-              subTitle={content}
-              origin={origin}
-              tags={[categoryName, capacity + "인분용"]}
-              isNew
-              isPrivate={totalOpenYn === "N"}
-            />
-          ),
-        )}
-        <RecipeCard
-          mainImageSrc={SampleMainImage}
-          title={"스테이크 솥밥"}
-          subTitle={"내 최애 푸드 중 하나"}
-          origin={"아빠"}
-          tags={["한식", "2인분 용"]}
-          isNew
-          isPrivate
-        />
+    <div className="relative flex flex-col gap-3 h-full">
+      <h1 className="text-[40px] mt-10">
+        <div className={NamnumSquareFont.className + " flex items-end"}>
+          <span className="font-extrabold">대대</span>
+          <span className="font-extralight">손손</span>
+          <HandLine />
+        </div>
+      </h1>
+      <HandWriting />
+      <p className="font-pretendard">
+        세상에 하나밖에 없는 <br />
+        우리 가족만의 레시피북 만들기
+      </p>
+      <OnboardingLogo className={"absolute right-[-16px] pt-[110px]"} />
+      <div className="absolute bottom-[-20px] w-full flex flex-col gap-3">
+        <KakaoButton />
+        <Link
+          href={"/search"}
+          className=" w-full h-[50px] text-sm rounded-base
+        border
+         border-main-orange
+         text-main-orange
+        flex justify-center items-center
+        gap-2.5
+        "
+        >
+          서비스 둘러보기
+        </Link>
       </div>
     </div>
   );

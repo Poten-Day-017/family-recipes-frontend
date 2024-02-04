@@ -21,8 +21,8 @@ const VideoField = () => {
         <p className="text-sm text-beige-500 pt-2.5">
           가족과 함께한 레시피 영상을 올려주세요.
         </p>
-        <span>최대 1GB까지 업로드 가능</span>
       </div>
+      <span>최대 1GB까지 업로드 가능</span>
     </div>
   );
 };
