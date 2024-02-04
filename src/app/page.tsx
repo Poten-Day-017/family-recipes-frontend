@@ -6,11 +6,17 @@ import HandWriting from "@/assets/onboarding-text.svg";
 import HandLine from "@/assets/line.svg";
 
 import localFont from "next/font/local";
+import { Metadata } from "next";
 
 const NamnumSquareFont = localFont({
   src: "../fonts/NanumRound.ttf",
   display: "swap",
 });
+
+export const metadata: Metadata = {
+  title: "대대손손",
+  description: "가족 레시피북을 만들어보세요!",
+};
 
 export default function Home() {
   return (

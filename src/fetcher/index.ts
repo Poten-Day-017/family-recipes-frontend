@@ -1,7 +1,6 @@
 import { CategoryRes, RecipeDetailRes, RecipeListRes } from "@/fetcher/types";
 
 const BASE_URL = " https://daedaesonson.site/api/v1/";
-
 type GetRecipesFunc = {
   (params: {
     page: number;
@@ -22,7 +21,8 @@ type GetRecipeDetailFunc = {
 };
 
 export const getRecipeDetail: GetRecipeDetailFunc = async (id) => {
-  const response = await fetch(BASE_URL + "/recipes" + "/" + id);
+  const response = await fetch(BASE_URL + "recipes/" + id);
+
   return response.json();
 };
 

@@ -15,7 +15,7 @@ interface Props {
   recipeId: string;
 }
 
-const Private = () => {
+export const Private = () => {
   return (
     <div className="bg-main-black inline-flex px-2.5 h-5 rounded-[3px] gap-[5px] justify-center items-center">
       <LockIcon />
@@ -24,7 +24,7 @@ const Private = () => {
   );
 };
 
-const Public = () => {
+export const Public = () => {
   return (
     <div className="bg-main-black inline-flex px-2.5 h-5 rounded-[3px] gap-[5px] justify-center items-center">
       <UnLockIcon />
