@@ -31,7 +31,7 @@ export default function Home() {
       <div className="absolute bottom-[-20px] w-full flex flex-col gap-3">
         <KakaoButton />
         <Link
-          href={"/search"}
+          href={"/recipes"}
           className=" w-full h-[50px] text-sm rounded-base
         border
          border-main-orange

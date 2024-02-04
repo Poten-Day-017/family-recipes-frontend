@@ -1,19 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import KakaoLogo from "@/assets/kakao-logo.svg";
 import { signIn, useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 const KakaoButton = () => {
   const { data: session } = useSession();
-  // const router = useRouter();
+  const router = useRouter();
   console.log(session);
 
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push("/recipes");
-  //   }
-  // }, [router, session]);
+  useEffect(() => {
+    if (session) {
+      router.push("/recipes");
+    }
+  }, [router, session]);
 
   return (
     <button
