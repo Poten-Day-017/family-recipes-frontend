@@ -16,6 +16,10 @@ const nextConfig = {
   images: {
     domains: ["www.daedaesonson.site"],
   },
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
+  },
 };
 
 module.exports = nextConfig;
