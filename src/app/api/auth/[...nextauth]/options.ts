@@ -8,4 +8,5 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.KAKAO_CLIENT_SECRET ?? "",
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
 };
