@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/Layout/Header";
-// import { getRecipeDetail } from "@/fetcher";
-// import { usePathname } from "next/navigation";
+import { getRecipeDetail } from "@/fetcher";
+import { usePathname } from "next/navigation";
 
 const RecipeDetail = async () => {
   // const handleClick = () => {
@@ -77,7 +77,8 @@ const RecipeDetail = async () => {
   //   });
   // };
 
-  // const pathname = usePathname();
+  const pathname = usePathname();
+  // pathname.
   //
   // const recipeDetailRes = await getRecipeDetail();
 
