@@ -14,7 +14,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["www.daedaesonson.site"],
+    domains: ["www.daedaesonson.site", "via.placeholder.com"],
   },
   compiler: {
     removeConsole:
