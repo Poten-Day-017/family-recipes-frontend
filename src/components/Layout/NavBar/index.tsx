@@ -9,46 +9,49 @@ import RecipeIcon from "@/assets/navbar-icon/icon-add-recipe.svg";
 import ProfileIcon from "@/assets/navbar-icon/icon-user-mono.svg";
 import SearchIcon from "@/assets/navbar-icon/icon-search.svg";
 import { usePathname } from "next/navigation";
+import {
+  PROFILE_PATH,
+  RECIPES_CALENDER_PATH,
+  RECIPES_CREATE_PATH,
+  RECIPES_PATH,
+  RECIPES_SEARCH_PATH,
+} from "@/constants/routes";
 
 export const NAV_LIST = [
   {
-    href: "/recipes",
+    href: RECIPES_PATH,
     icon: <HomeIcon className={"current-fill-svg"} />,
     text: "홈",
-    headerTitle: "My Family Recipe Note",
+    headerTitle: "My Family Recipe Book",
   },
   {
-    href: "/search",
+    href: RECIPES_SEARCH_PATH,
     icon: <SearchIcon className={"current-fill-svg"} />,
     text: "레시피 검색",
-    headerTitle: "",
+    headerTitle: "Family Recipe Search",
   },
   {
-    href: "/recipes/new",
+    href: RECIPES_CREATE_PATH,
     icon: <RecipeIcon className={"current-fill-svg"} />,
     text: "레시피 작성",
     headerTitle: "Family Recipe Book",
   },
   {
-    href: "/calender",
+    href: RECIPES_CALENDER_PATH,
     icon: <CalendarIcon className={"current-fill-svg"} />,
     text: "가족 캘린더",
-    headerTitle: "",
+    headerTitle: "Family Calendar",
   },
   {
-    href: "/profile",
+    href: PROFILE_PATH,
     icon: <ProfileIcon className={"current-fill-svg"} />,
     text: "프로필",
-    headerTitle: "",
+    headerTitle: "Profile",
   },
 ] as const;
 
 const NavBar = () => {
   const pathname = usePathname();
-
-  if (pathname === "/") {
-    return <div></div>;
-  }
 
   return (
     <>

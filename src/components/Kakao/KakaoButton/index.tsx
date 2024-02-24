@@ -8,11 +8,12 @@ import { useRouter } from "next/navigation";
 const KakaoButton = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session);
+  console.log("session", session);
 
   useEffect(() => {
     if (session) {
-      router.push("/recipes");
+      console.log("session!!!!!! ", session);
+      // router.push("/recipes");
     }
   }, [router, session]);
 

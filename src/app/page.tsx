@@ -1,5 +1,5 @@
 import React from "react";
-import KakaoButton from "@/components/KakaoButton";
+import KakaoButton from "../components/Kakao/KakaoButton";
 import Link from "next/link";
 import OnboardingLogo from "@/assets/onbording-logo.svg";
 import HandWriting from "@/assets/onboarding-text.svg";

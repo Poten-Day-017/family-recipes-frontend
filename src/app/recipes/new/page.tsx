@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import InputText from "@/components/Input";
+import InputText from "../../../components/common/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectField from "@/components/Select";
-import NewHeader from "@/components/Layout/Header/NewHeader";
 import PrivateToggle from "../../../components/RecipeForm/PrivateToggleField";
 import useGetCategory from "@/hooks/query";
 import ImageField from "@/components/RecipeForm/ImageFormField";
@@ -34,11 +33,6 @@ const NewRecipePage = () => {
 
   return (
     <div className="h-full">
-      <NewHeader
-        onSubmit={() => {
-          handleSubmit(onSubmit);
-        }}
-      />
       <FormProvider {...methods}>
         <form className="">
           <PrivateToggle isPrivate={isPrivate} setIsPrivate={setIsPrivate} />

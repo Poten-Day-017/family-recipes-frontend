@@ -2,11 +2,19 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontSize: {
+      "2xs": "0.625rem",
+      xs: "0.75rem",
+      sm: "0.875rem",
+      base: "1rem",
+      lg: "1.125rem",
+      xl: "1.375rem",
+      "2xl": "1.625rem",
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -31,9 +39,7 @@ const config: Config = {
         beige: "#EEF0EB",
         kakao: "#FEE500",
       },
-      fontFamily: {
-        pretendard: ["Pretendard"],
-      },
+      fontFamily: {},
       borderRadius: {
         base: "5px",
       },

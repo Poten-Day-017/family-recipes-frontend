@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AuthSession from "@/providers/sessionProvider";
-import Script from "next/script";
 import React from "react";
 import NavBar from "../components/Layout/NavBar";
 import QueryProvider from "@/providers/queryProvider";
+import KakaoShareScript from "../components/Kakao/KakaoShareScript";
+import localFont from "next/font/local";
 
-const KAKAO_SDK_URL = "https://developers.kakao.com/sdk/js/kakao.js";
 export const metadata: Metadata = {
   title: "대대손손",
   description: "가족 레시피북을 만들어보세요!",
 };
 
-declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
-    Kakao: any;
-  }
-}
+const pretendardFont = localFont({
+  src: "../fonts/PretendardVariable.woff2",
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -25,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={pretendardFont.className}>
       <body>
         <QueryProvider>
           <AuthSession>
@@ -35,8 +33,8 @@ export default function RootLayout({
                 <NavBar />
               </div>
             </div>
-            <Script src={KAKAO_SDK_URL} />
           </AuthSession>
+          <KakaoShareScript />
         </QueryProvider>
       </body>
     </html>

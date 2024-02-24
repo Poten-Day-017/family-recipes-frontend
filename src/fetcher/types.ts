@@ -23,7 +23,7 @@ interface Ingredient {
   amount: string;
 }
 
-interface ProcedureList {
+interface Procedure {
   order: number;
   description: string;
 }
@@ -39,8 +39,9 @@ export interface RecipeDetailRes {
   totalOpenYn: string;
   cookingVideoUrl: string;
   cookingImageUrl: string;
+  secretIngredientList: Ingredient[];
   ingredientList: Ingredient[];
-  procedureList: ProcedureList[];
+  procedureList: Procedure[];
 }
 
 export interface Category {
