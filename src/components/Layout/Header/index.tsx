@@ -17,13 +17,15 @@ const Header = ({ text }: { text: string }) => {
   return (
     <div
       className={`
+      mt-1
       bg-beige-100 
       sticky top-0 border-t-2 
       border-b border-[#222320]
       flex justify-center items-center 
+      z-10
       py-4 ${abhayaLibre.className}`}
     >
-      <h1 className="text-[30px] text-text-black">{text}</h1>
+      <h1 className="text-[22px] text-text-black">{text}</h1>
     </div>
   );
 };

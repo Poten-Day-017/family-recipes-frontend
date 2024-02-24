@@ -15,6 +15,18 @@ const nextConfig = {
   },
   images: {
     domains: ["www.daedaesonson.site", "via.placeholder.com"],
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "**.daedaesonson.site",
+    //     port: "",
+    //   },
+    //   {
+    //     protocol: "https",
+    //     hostname: "via.placeholder.com",
+    //     port: "",
+    //   },
+    // ],
   },
   compiler: {
     removeConsole:

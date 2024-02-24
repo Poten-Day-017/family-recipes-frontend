@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
-import LockIcon from "@/assets/lock.svg";
-import UnLockIcon from "@/assets/unlock.svg";
 import Link from "next/link";
+import { getRecipeDetailPath } from "@/constants/routes";
+import { Private, Public } from "@/components/Tag";
 
 interface Props {
+  recipeOrder: number;
   mainImageSrc: string | StaticImageData;
   title: string;
   subTitle: string;
@@ -13,27 +14,13 @@ interface Props {
   isNew: boolean;
   isPrivate: boolean;
   recipeId: string;
+  date: string; // YYYY.MM.DD 형식
 }
 
-export const Private = () => {
-  return (
-    <div className="bg-main-black inline-flex px-2.5 h-5 rounded-[3px] gap-[5px] justify-center items-center">
-      <LockIcon />
-      <span className="text-[10px] text-white">비공개</span>
-    </div>
-  );
-};
-
-export const Public = () => {
-  return (
-    <div className="bg-main-black inline-flex px-2.5 h-5 rounded-[3px] gap-[5px] justify-center items-center">
-      <UnLockIcon />
-      <span className="text-[10px] text-white">공개</span>
-    </div>
-  );
-};
+// const RecipeBook = ({}) => {};
 
 const RecipeCard: FC<Props> = ({
+  recipeOrder,
   mainImageSrc,
   isPrivate,
   origin,
@@ -41,13 +28,25 @@ const RecipeCard: FC<Props> = ({
   subTitle,
   tags,
   recipeId,
+  date,
 }) => {
   return (
-    <Link href={`/recipes/${recipeId}`}>
+    <Link href={getRecipeDetailPath(recipeId)}>
       <div className="w-full bg-beige flex items-center border-beige-400 border-t border-b border-dashed py-[8px] px-[11px]">
         <div className="pr-[15px] flex items-center aspect-square border-r-[0.5px] border-beige-400">
-          <div className="w-[114px] h-[114px] rounded-[5px] border border-main-black flex-shrink-0 overflow-hidden">
-            <Image src={mainImageSrc} alt={title} width={114} height={114} />
+          <div className="relative w-[100px] h-[131px] border border-main-black rounded-r-base flex justify-center items-center ">
+            <div className="w-[5px] h-full border-r border-main-black  absolute left-0" />
+            <div className="flex flex-col items-center">
+              <span>No.{recipeOrder}</span>
+              <Image
+                src={mainImageSrc}
+                alt={title}
+                width={70}
+                height={70}
+                className="border border-main-black rounded-r-base"
+              />
+              <span>{date}</span>
+            </div>
           </div>
         </div>
         <div className=" w-full pl-[15px] py-2.5">
