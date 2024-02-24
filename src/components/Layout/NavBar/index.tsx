@@ -10,6 +10,8 @@ import ProfileIcon from "@/assets/navbar-icon/icon-user-mono.svg";
 import SearchIcon from "@/assets/navbar-icon/icon-search.svg";
 import { usePathname } from "next/navigation";
 import {
+  HOME_PATH,
+  ONBOARDING_PATH,
   PROFILE_PATH,
   RECIPES_CALENDER_PATH,
   RECIPES_CREATE_PATH,
@@ -52,6 +54,10 @@ export const NAV_LIST = [
 
 const NavBar = () => {
   const pathname = usePathname();
+
+  if (pathname === HOME_PATH || pathname === ONBOARDING_PATH) {
+    return <div></div>;
+  }
 
   return (
     <>
