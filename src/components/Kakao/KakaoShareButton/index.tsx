@@ -3,6 +3,13 @@
 import React from "react";
 import ShareIcon from "@/assets/icons/share.svg";
 
+declare global {
+  // eslint-disable-next-line no-unused-vars
+  interface Window {
+    Kakao: any;
+  }
+}
+
 const handleClick = () => {
   window.Kakao.Share.sendDefault({
     objectType: "feed",

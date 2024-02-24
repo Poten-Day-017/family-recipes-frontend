@@ -45,7 +45,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div>
-      <Header text={} />
+      <Header text={""} />
       {children}
       <NavBar />
     </div>
