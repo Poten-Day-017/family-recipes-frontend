@@ -5,7 +5,6 @@ import CompleteFunnel from "@/components/Onboarding/CompleteFunnel";
 
 const Onboarding = () => {
   const searchParams = useSearchParams();
-
   const completed = searchParams.get("complete");
   console.log(completed);
 

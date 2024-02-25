@@ -5,7 +5,7 @@ import InputText from "../../../components/common/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectField from "@/components/Select";
 import PrivateToggle from "../../../components/RecipeForm/PrivateToggleField";
-import useGetCategory from "@/hooks/query";
+import useGetCategory from "../../../queries";
 import ImageField from "@/components/RecipeForm/ImageFormField";
 import VideoField from "@/components/RecipeForm/VideoFormField";
 
@@ -28,8 +28,6 @@ const NewRecipePage = () => {
     data: { categoryList },
   } = useGetCategory();
   console.log(categoryList);
-
-  const onSubmit = () => {};
 
   return (
     <div className="h-full">

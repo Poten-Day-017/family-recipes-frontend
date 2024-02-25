@@ -7,13 +7,16 @@
 
 type FetchParameters = Parameters<typeof fetch>;
 type Promiseable<T> = T | Promise<T>;
+type Nullable<T> = T | null;
 
 type Params = Record<
   "params",
   Record<string, number | string | null | undefined>
-> | null;
+>;
 
-type Options = NonNullable<FetchParameters[1]> & Params;
+type Options =
+  | (NonNullable<FetchParameters[1]> & Params)
+  | NonNullable<FetchParameters[1]>;
 
 export type HTTPClient<Res = Response> = ReturnType<typeof httpClient<Res>>;
 
@@ -47,8 +50,6 @@ export default function httpClient<T = Response>({
   interceptors = {},
   ...requestInit
 }: HTTPClientOption<T> = {}) {
-  // fetch를 Return
-
   return async function <Res = T extends Response ? Response : T>(
     input: FetchParameters[0],
     init?: Options,
@@ -72,10 +73,10 @@ export default function httpClient<T = Response>({
       ? await interceptors.request(url, option)
       : option;
 
-    const response = await fetch(url, interceptorAppliedOption).then(
+    const response = await fetch(url, interceptorAppliedOption)
+      .then
       // 이거 안해도 되나?
-      (res) => res.json(),
-    );
+      ();
 
     if (interceptors.response) {
       return (await interceptors.response(response)) as Res;

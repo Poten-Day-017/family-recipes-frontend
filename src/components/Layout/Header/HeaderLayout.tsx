@@ -27,7 +27,7 @@ const Header: FC<Props> = ({ headerTitle }) => {
       flex justify-center items-center 
       py-4 ${abhayaLibre.className}`}
     >
-      <h1 className="text-[30px] text-text-black">{headerTitle}</h1>
+      <h1 className="text-[30px] text-main-black">{headerTitle}</h1>
     </div>
   );
 };
