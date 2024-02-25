@@ -20,15 +20,16 @@ const backendFetch = httpClient({
       console.log("********* after receiving response *********");
       console.log("response: ", JSON.stringify(response));
       console.log("is it ok?: ", response.ok);
+
       if (!response.ok) {
         if (400 <= response.status && response.status < 500) {
           console.log("ClientError: ", response.status);
-        }
-        if (400 <= response.status && response.status < 500) {
+        } else {
           console.error("ServerError : ", response.status);
         }
         throw Error(response.status + response.statusText);
       }
+      console.log("error");
 
       return response.json();
     },
@@ -59,9 +60,8 @@ type GetRecipeDetailFunc = {
 
 export const getRecipeDetail: GetRecipeDetailFunc = async (id) => {
   try {
-    const response = await fetch(BASE_URL + "recipes/" + id);
-    console.log("recipeDetail response : ", response.status);
-    return response.json();
+    const response = await backendFetch(BASE_URL + "recipes/" + id);
+    return response;
   } catch {
     notFound();
   }
@@ -73,8 +73,8 @@ type GetCategory = {
 
 export const getCategory: GetCategory = async () => {
   try {
-    const response = await fetch(BASE_URL + "recipes/category");
-    return response.json();
+    const response = await backendFetch(BASE_URL + "recipes/category");
+    return response;
   } catch {
     notFound();
   }
