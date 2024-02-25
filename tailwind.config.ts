@@ -37,12 +37,10 @@ const config: Config = {
         "main-black": "#20211E",
         kakao: "#FEE500",
       },
-      fontFamily: {},
       borderRadius: {
         base: "5px",
       },
     },
   },
-  plugins: [],
 };
 export default config;
