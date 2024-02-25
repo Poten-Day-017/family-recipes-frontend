@@ -25,7 +25,7 @@ const Header = ({ text }: { text: string }) => {
       z-10
       py-4 ${abhayaLibre.className}`}
     >
-      <h1 className="text-[22px] text-text-black">{text}</h1>
+      <h1 className="text-[22px] text-main-black">{text}</h1>
     </div>
   );
 };

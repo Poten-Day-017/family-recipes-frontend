@@ -50,7 +50,7 @@ const SelectField = () => {
             <DropDown />
           </div>
         </Listbox.Button>
-        <Listbox.Options className="mt-2.5 bg-beige py-1 px-1.5 rounded-[5px] cursor-pointer">
+        <Listbox.Options className="mt-2.5 bg-beige-200 py-1 px-1.5 rounded-[5px] cursor-pointer">
           {CATEGORY.map(({ id, name }) => (
             <Listbox.Option
               className="pl-4 flex items-center h-12 m-2 rounded-[5px] hover:bg-[#E1E8C9]"

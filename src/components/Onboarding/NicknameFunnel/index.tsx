@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Input from "@/components/common/Input";
 import GoBackIcon from "@/assets/icons/go-back.svg";
 import Button from "@/components/common/Button";
@@ -9,18 +9,18 @@ import { ONBOARDING_PATH } from "@/constants/routes";
 
 const NickNameFunnel = () => {
   const router = useRouter();
+  const [nickname, setNickname] = useState<string | null>(null);
   const goBack = () => {
     router.back();
   };
 
+  // 상위 state로 관리하는게 편할려나?
   const goCompleted = () => {
     router.push(ONBOARDING_PATH + "?complete=true");
   };
-  const nicknameRef = useRef<HTMLInputElement>(null);
 
   const onSubmitNickname = () => {
     // Nickname API
-
     goCompleted();
   };
 
@@ -42,9 +42,17 @@ const NickNameFunnel = () => {
         닉네임은 공백없이 12자 이하, <br /> 기호는 -_ . 만 사용 가능합니다.
       </p>
       <div className="pt-[15px]">
-        <Input placeholder="닉네임을 작성해주세요." ref={nicknameRef} />
+        <Input
+          placeholder="닉네임을 작성해주세요."
+          onChange={(e) => setNickname(e.target.value)}
+        />
       </div>
-      <Button onClick={onSubmitNickname} size="full" color="orange-fill">
+      <Button
+        onClick={onSubmitNickname}
+        size="full"
+        color="orange-fill"
+        disabled={!nickname}
+      >
         작성완료
       </Button>
     </div>

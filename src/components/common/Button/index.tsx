@@ -17,7 +17,7 @@ const colorOptions = {
   "orange-stroke": "border border-main-orange text-main-orange",
   disabled: "bg-beige-300 text-beige-500",
   "orange-fill": "bg-main-orange text-white",
-  "black-stroke": "border border-black text-black",
+  "black-stroke": "border border-black text-main-black",
 };
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -40,9 +40,8 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
     return (
       <button
         className={`flex h-[50px] w-full justify-center items-center mt-4 rounded-[5px]
-        ${disabled ? "bg-beige-300 text-beige-500" : ""}
         ${size ? sizeOptions[size] : sizeOptions["full"]}
-        ${color ? colorOptions[color] : colorOptions["orange-stroke"]}
+        ${disabled ? colorOptions["disabled"] : color ? colorOptions[color] : colorOptions["orange-stroke"]}
         `}
         ref={ref}
         {...props}
