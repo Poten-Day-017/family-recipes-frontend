@@ -1,4 +1,5 @@
 {
+//  "plugins": ["prettier-plugin-tailwindcss"],
   "extends": ["next/core-web-vitals", "eslint-config-nyoung"],
   "rules": {
     "no-unused-vars": "off",

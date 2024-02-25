@@ -6,7 +6,7 @@ import KnifeBackground from "@/assets/onboarding/knife.svg";
 import RiceBackground from "@/assets/onboarding/rice.svg";
 import LineBackground from "@/assets/onboarding/line.svg";
 import useTimeout from "@/hooks/useTimeout";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { RECIPES_PATH } from "@/constants/routes";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 }
 const CompleteFunnel: FC<Props> = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useTimeout(() => {
     router.push(RECIPES_PATH);

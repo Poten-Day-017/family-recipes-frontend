@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Input from "@/components/common/Input";
 import GoBackIcon from "@/assets/icons/go-back.svg";
 import Button from "@/components/common/Button";
@@ -15,6 +15,13 @@ const NickNameFunnel = () => {
 
   const goCompleted = () => {
     router.push(ONBOARDING_PATH + "?complete=true");
+  };
+  const nicknameRef = useRef<HTMLInputElement>(null);
+
+  const onSubmitNickname = () => {
+    // Nickname API
+
+    goCompleted();
   };
 
   return (
@@ -35,9 +42,11 @@ const NickNameFunnel = () => {
         닉네임은 공백없이 12자 이하, <br /> 기호는 -_ . 만 사용 가능합니다.
       </p>
       <div className="pt-[15px]">
-        <Input placeholder="닉네임을 작성해주세요." />
+        <Input placeholder="닉네임을 작성해주세요." ref={nicknameRef} />
       </div>
-      <Button onClick={goCompleted}>작성완료</Button>
+      <Button onClick={onSubmitNickname} size="full" color="orange-fill">
+        작성완료
+      </Button>
     </div>
   );
 };
