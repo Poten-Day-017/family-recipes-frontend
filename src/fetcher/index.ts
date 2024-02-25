@@ -72,8 +72,12 @@ type GetCategory = {
 };
 
 export const getCategory: GetCategory = async () => {
-  const response = await fetch(BASE_URL + "recipes/category");
-  return response.json();
+  try {
+    const response = await fetch(BASE_URL + "recipes/category");
+    return response.json();
+  } catch {
+    notFound();
+  }
 };
 
 export const putNickname = async () => {

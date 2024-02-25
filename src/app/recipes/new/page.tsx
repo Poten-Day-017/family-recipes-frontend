@@ -29,8 +29,6 @@ const NewRecipePage = () => {
   } = useGetCategory();
   console.log(categoryList);
 
-  const onSubmit = () => {};
-
   return (
     <div className="h-full">
       <FormProvider {...methods}>
