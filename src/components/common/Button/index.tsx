@@ -44,6 +44,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
         ${disabled ? colorOptions["disabled"] : color ? colorOptions[color] : colorOptions["orange-stroke"]}
         `}
         ref={ref}
+        disabled={disabled}
         {...props}
       >
         {children}
