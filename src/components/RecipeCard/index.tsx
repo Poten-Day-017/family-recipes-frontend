@@ -13,7 +13,7 @@ interface Props {
   tags: string[];
   isNew: boolean;
   isPrivate: boolean;
-  recipeId: string;
+  recipeId: number;
   date: string; // YYYY.MM.DD 형식
 }
 
