@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Input from "@/components/common/Input";
 import GoBackIcon from "@/assets/icons/go-back.svg";
 import Button from "@/components/common/Button";
@@ -21,8 +21,12 @@ const NickNameFunnel = () => {
 
   const onSubmitNickname = () => {
     // Nickname API
+
     goCompleted();
   };
+
+  // 닉네임은 공백없이 12자 이하,
+  // 기호는 -_ . 만 사용 가능합니다.
 
   return (
     <div>
