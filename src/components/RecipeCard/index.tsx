@@ -6,7 +6,7 @@ import { Private, Public } from "@/components/Tag";
 
 interface Props {
   recipeOrder: number;
-  mainImageSrc: string | StaticImageData;
+  mainImageSrc: string | StaticImageData | undefined;
   title: string;
   subTitle: string;
   origin: string;
@@ -38,13 +38,15 @@ const RecipeCard: FC<Props> = ({
             <div className="w-[5px] h-full border-r border-main-black  absolute left-0" />
             <div className="flex flex-col items-center">
               <span>No.{recipeOrder}</span>
-              <Image
-                src={mainImageSrc}
-                alt={title}
-                width={70}
-                height={70}
-                className="border border-main-black rounded-r-base"
-              />
+              {mainImageSrc && (
+                <Image
+                  src={mainImageSrc}
+                  alt={title}
+                  width={70}
+                  height={70}
+                  className="border border-main-black rounded-r-base"
+                />
+              )}
               <span>{date}</span>
             </div>
           </div>
