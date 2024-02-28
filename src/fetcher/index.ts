@@ -14,7 +14,7 @@ const BASE_URL = "https://daedaesonson.site/api/v1/";
 
 const backendFetch = httpClient({
   baseUrl: BASE_URL,
-  headers: { Accept: "application/json" },
+  headers: { "Content-Type": "application/json" },
   cache: "no-store",
   interceptors: {
     request: async (url, init) => {
@@ -26,7 +26,7 @@ const backendFetch = httpClient({
     },
     response: async (response) => {
       console.log("********* after receiving response *********");
-      console.log("response: ", JSON.stringify(response));
+      console.log("response: ", response);
       console.log("is it ok?: ", response.ok);
 
       if (!response.ok) {
@@ -97,14 +97,7 @@ export const createNewUser: CreateNewUserFn = async (
   try {
     const response = await backendFetch<UserRes>("social/login", {
       method: "POST",
-      body: JSON.stringify({
-        name: "권내영1",
-        email: "cindy0113@naver.com",
-        picture:
-          "http://k.kakaocdn.net/dn/1G9kp/btsAot8liOn/8CWudi3uy07rvFNUkk3ER0/img_640x640.jpg",
-        providerType: "KAKAO",
-        deviceToken: "empty",
-      }),
+      body: JSON.stringify(createUserBody),
     });
     return response;
   } catch {

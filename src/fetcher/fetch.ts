@@ -56,27 +56,24 @@ export default function httpClient<T = Response>({
   ): Promise<Res> {
     const searchParams = new URLSearchParams();
 
-    let url = applyBaseUrl(input, baseUrl);
     if (init && "params" in init) {
       for (const key in init.params) {
         const value = init.params[key];
         if (value !== null || value !== undefined)
           searchParams.append(key, String(value));
       }
-      url = applyBaseUrl(input, baseUrl) + "?" + searchParams.toString();
     }
 
     console.log("searchParams Test: ", searchParams.toString());
+    const url = applyBaseUrl(input, baseUrl) + "?" + searchParams.toString();
+
     const option = { ...requestInit, ...init };
 
     const interceptorAppliedOption = interceptors.request
       ? await interceptors.request(url, option)
       : option;
 
-    const response = await fetch(url, interceptorAppliedOption)
-      .then
-      // 이거 안해도 되나?
-      ();
+    const response = await fetch(url, interceptorAppliedOption);
 
     if (interceptors.response) {
       return (await interceptors.response(response)) as Res;
