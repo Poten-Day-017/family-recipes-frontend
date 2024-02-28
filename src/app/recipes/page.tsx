@@ -40,11 +40,13 @@ export default async function RecipePage() {
               capacity,
               totalOpenYn,
               cookingImageUrl,
+              createdAt,
+              order,
             },
             idx,
           ) => (
             <RecipeCard
-              recipeOrder={idx + 1}
+              recipeOrder={order}
               recipeId={recipeId}
               key={title + idx}
               mainImageSrc={cookingImageUrl}
@@ -54,7 +56,7 @@ export default async function RecipePage() {
               tags={[categoryName, `${capacity}인분용`]}
               isNew
               isPrivate={totalOpenYn === "N"}
-              date={"2023.11.11"}
+              date={createdAt}
             />
           ),
         )}
