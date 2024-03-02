@@ -8,8 +8,19 @@ import HandLine from "@/assets/line.svg";
 import localFont from "next/font/local";
 import { Metadata } from "next";
 
-const NamnumSquareFont = localFont({
-  src: "../fonts/NanumRound.ttf",
+const NamnumSquareExtraBoldFont = localFont({
+  src: [
+    {
+      path: "../fonts/NanumSquareRoundOTFEB.otf",
+      weight: "700",
+      style: "extrabold",
+    },
+    {
+      path: "../fonts/NanumSquareRoundOTFL.otf",
+      weight: "300",
+      style: "light",
+    },
+  ],
   display: "swap",
 });
 
@@ -22,9 +33,11 @@ export default function Home() {
   return (
     <div className="relative flex flex-col gap-3 h-full">
       <h1 className="text-[40px] mt-10">
-        <div className={NamnumSquareFont.className + " flex items-end"}>
+        <div
+          className={NamnumSquareExtraBoldFont.className + " flex items-end"}
+        >
           <span className="font-extrabold">대대</span>
-          <span className="font-extralight">손손</span>
+          <span className="font-light">손손</span>
           <HandLine />
         </div>
       </h1>

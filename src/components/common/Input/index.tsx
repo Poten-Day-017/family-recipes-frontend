@@ -4,7 +4,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   title?: string;
   explanation?: string;
-  error?: string;
+  error?: string | null;
 }
 
 const InputText = forwardRef<HTMLInputElement, Props>(
@@ -20,16 +20,18 @@ const InputText = forwardRef<HTMLInputElement, Props>(
         <input
           type="text"
           className={`w-full
-          py-[1.25rem]
-          px-[0.5rem]
-          bg-[#E1E2DE]
-           rounded-tr-[5px]
-           rounded-tl-[5px]
+          h-[50px]
+          bg-beige-300
+           pl-1
+           rounded-tr-base
+           rounded-tl-base
            border-b 
-           ${error ? "border-b-2 border-[#EB200D]" : "border-[#BEC0BB]"}
-           placeholder:text-[#9FA19D]
-           text-[#222320]
+           ${error ? "border-b-2 border-main-error" : "border-beige-400"}
+           placeholder:text-beige-500
+           text-main-black
+           text-sm
            outline-none
+        
       `}
           ref={ref}
           {...props}

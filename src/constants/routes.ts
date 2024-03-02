@@ -10,7 +10,7 @@ export const RECIPES_CALENDER_PATH = RECIPES_PATH + "/calender";
 
 export const RECIPES_DETAIL_PATH = `${RECIPES_PATH}/:id`;
 
-export const getRecipeDetailPath = (recipeId: string) =>
+export const getRecipeDetailPath = (recipeId: number) =>
   `${RECIPES_PATH}/${recipeId}`;
 
 /* 비로그인 시 접근 할 수 없는 */

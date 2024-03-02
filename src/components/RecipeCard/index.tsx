@@ -6,14 +6,14 @@ import { Private, Public } from "@/components/Tag";
 
 interface Props {
   recipeOrder: number;
-  mainImageSrc: string | StaticImageData;
+  mainImageSrc: string | StaticImageData | undefined;
   title: string;
   subTitle: string;
   origin: string;
   tags: string[];
   isNew: boolean;
   isPrivate: boolean;
-  recipeId: string;
+  recipeId: number;
   date: string; // YYYY.MM.DD 형식
 }
 
@@ -33,18 +33,20 @@ const RecipeCard: FC<Props> = ({
   return (
     <Link href={getRecipeDetailPath(recipeId)}>
       <div className="w-full bg-beige flex items-center border-beige-400 border-t border-b border-dashed py-[8px] px-[11px]">
-        <div className="pr-[15px] flex items-center aspect-square border-r-[0.5px] border-beige-400">
+        <div className="pr-[15px] flex items-center aspect-square border-r border-beige-400">
           <div className="relative w-[100px] h-[131px] border border-main-black rounded-r-base flex justify-center items-center ">
-            <div className="w-[5px] h-full border-r border-main-black  absolute left-0" />
+            <div className="w-[5px] h-full border-r border-main-black absolute left-0" />
             <div className="flex flex-col items-center">
               <span>No.{recipeOrder}</span>
-              <Image
-                src={mainImageSrc}
-                alt={title}
-                width={70}
-                height={70}
-                className="border border-main-black rounded-r-base"
-              />
+              {mainImageSrc && (
+                <Image
+                  src={mainImageSrc}
+                  alt={title}
+                  width={70}
+                  height={70}
+                  className="border border-main-black rounded-r-base"
+                />
+              )}
               <span>{date}</span>
             </div>
           </div>

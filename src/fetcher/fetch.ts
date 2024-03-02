@@ -73,10 +73,7 @@ export default function httpClient<T = Response>({
       ? await interceptors.request(url, option)
       : option;
 
-    const response = await fetch(url, interceptorAppliedOption)
-      .then
-      // 이거 안해도 되나?
-      ();
+    const response = await fetch(url, interceptorAppliedOption);
 
     if (interceptors.response) {
       return (await interceptors.response(response)) as Res;

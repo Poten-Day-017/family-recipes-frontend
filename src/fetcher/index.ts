@@ -1,4 +1,12 @@
-import { CategoryRes, RecipeDetailRes, RecipeListRes } from "@/fetcher/types";
+import {
+  CategoryRes,
+  CreateUserBody,
+  NicknameBody,
+  NicknameRes,
+  RecipeDetailRes,
+  RecipeListRes,
+  UserRes,
+} from "@/fetcher/types";
 import { notFound } from "next/navigation";
 import httpClient from "@/fetcher/fetch";
 
@@ -6,7 +14,7 @@ const BASE_URL = "https://daedaesonson.site/api/v1/";
 
 const backendFetch = httpClient({
   baseUrl: BASE_URL,
-  headers: { Accept: "application/json" },
+  headers: { "Content-Type": "application/json" },
   cache: "no-store",
   interceptors: {
     request: async (url, init) => {
@@ -18,7 +26,7 @@ const backendFetch = httpClient({
     },
     response: async (response) => {
       console.log("********* after receiving response *********");
-      console.log("response: ", JSON.stringify(response));
+      console.log("response: ", response);
       console.log("is it ok?: ", response.ok);
 
       if (!response.ok) {
@@ -29,7 +37,6 @@ const backendFetch = httpClient({
         }
         throw Error(response.status + response.statusText);
       }
-      console.log("error");
 
       return response.json();
     },
@@ -54,11 +61,11 @@ export const getRecipes: GetRecipesFunc = async ({ page }) => {
   }
 };
 
-type GetRecipeDetailFunc = {
+type GetRecipeDetailFn = {
   (id: string): Promise<RecipeDetailRes>;
 };
 
-export const getRecipeDetail: GetRecipeDetailFunc = async (id) => {
+export const getRecipeDetail: GetRecipeDetailFn = async (id) => {
   try {
     const response = await backendFetch(BASE_URL + "recipes/" + id);
     return response;
@@ -67,11 +74,11 @@ export const getRecipeDetail: GetRecipeDetailFunc = async (id) => {
   }
 };
 
-type GetCategory = {
+type GetCategoryFn = {
   (): Promise<CategoryRes>;
 };
 
-export const getCategory: GetCategory = async () => {
+export const getCategory: GetCategoryFn = async () => {
   try {
     const response = await backendFetch(BASE_URL + "recipes/category");
     return response;
@@ -80,8 +87,39 @@ export const getCategory: GetCategory = async () => {
   }
 };
 
-export const putNickname = async () => {
-  const response = await backendFetch("/nickname", {
-    method: "PUT",
-  });
+type CreateNewUserFn = {
+  (createUserbody: CreateUserBody): Promise<UserRes>;
+};
+
+export const createNewUser: CreateNewUserFn = async (
+  createUserBody: CreateUserBody,
+) => {
+  try {
+    const response = await backendFetch<UserRes>("social/login", {
+      method: "POST",
+      body: JSON.stringify(createUserBody),
+    });
+    return response;
+  } catch {
+    throw new Error("cant create user");
+  }
+};
+
+type PutNicknameFn = {
+  (putNickname: NicknameBody): Promise<NicknameRes>;
+};
+
+export const putNickname: PutNicknameFn = async ({ userId, nickname }) => {
+  try {
+    const response = await backendFetch(`/users/${userId}/nickname`, {
+      method: "PUT",
+      body: JSON.stringify({
+        userId,
+        nickname,
+      }),
+    });
+    return response;
+  } catch {
+    notFound();
+  }
 };

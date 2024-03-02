@@ -6,17 +6,6 @@ import { signIn, useSession } from "next-auth/react";
 
 import { useRouter } from "next/navigation";
 const KakaoButton = () => {
-  const { data: session } = useSession();
-  const router = useRouter();
-  console.log("session", session);
-
-  useEffect(() => {
-    if (session) {
-      console.log("session!!!!!! ", session);
-      // router.push("/recipes");
-    }
-  }, [router, session]);
-
   return (
     <button
       onClick={() => signIn("kakao")}

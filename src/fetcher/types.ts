@@ -1,4 +1,6 @@
 interface Recipe {
+  order: number; // 개인 별 순서
+  recipeId: number; // 레시피 ID
   cookingImageUrl: string; // 요리 대표 사진
   title: string; // 제목
   origin: string; // 주인
@@ -6,8 +8,8 @@ interface Recipe {
   category: string; // 카테고리 코드
   categoryName: string; // 카테고리 명
   capacity: number; // 레시피 기준 인원
-  totalOpenYn: string; // 레시피 공개 여부
-  recipeId: string;
+  totalOpenYn: "Y" | "N"; // 레시피 공개 여부
+  createdAt: string; // YYYY.MM.DD 형식 날짜
 }
 
 export interface RecipeListRes {
@@ -26,6 +28,7 @@ interface Ingredient {
 interface Procedure {
   order: number;
   description: string;
+  // TODO : image 있어야 함
 }
 export interface RecipeDetailRes {
   title: string;
@@ -52,3 +55,26 @@ export interface Category {
 export interface CategoryRes {
   categoryList: Category;
 }
+
+export interface CreateUserBody {
+  name: string;
+  email: string;
+  picture: string | null | undefined;
+  providerType: "KAKAO";
+  deviceToken: string;
+}
+
+export interface UserRes {
+  isProfileCompleted: boolean;
+  id: number;
+  accessToken: string;
+  refreshToken: string;
+  appVersion: string;
+}
+
+export interface NicknameBody {
+  userId: number;
+  nickname: string;
+}
+
+export type NicknameRes = "string";

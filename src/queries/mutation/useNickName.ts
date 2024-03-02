@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { putNickname } from "@/fetcher";
 
 const useNickName = () => {
-  return useQuery({
-    queryFn: () => {},
-    queryKey: [],
+  return useMutation({
+    mutationFn: putNickname,
   });
 };
 
