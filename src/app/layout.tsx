@@ -28,7 +28,7 @@ export default function RootLayout({
         <QueryProvider>
           <AuthSession>
             <div className="flex justify-center h-screen overflow-hidden">
-              <div className="w-full h-screen overflow-scroll max-w-screen-md bg-beige-100 text-main-black">
+              <div className="w-full h-screen overflow-y-scroll overflow-x-hidden max-w-screen-md bg-beige-100 text-main-black">
                 <div className="px-4 h-[calc(100vh-58px)]">{children}</div>
                 <NavBar />
               </div>

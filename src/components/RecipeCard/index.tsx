@@ -33,9 +33,9 @@ const RecipeCard: FC<Props> = ({
   return (
     <Link href={getRecipeDetailPath(recipeId)}>
       <div className="w-full bg-beige flex items-center border-beige-400 border-t border-b border-dashed py-[8px] px-[11px]">
-        <div className="pr-[15px] flex items-center aspect-square border-r-[0.5px] border-beige-400">
+        <div className="pr-[15px] flex items-center aspect-square border-r border-beige-400">
           <div className="relative w-[100px] h-[131px] border border-main-black rounded-r-base flex justify-center items-center ">
-            <div className="w-[5px] h-full border-r border-main-black  absolute left-0" />
+            <div className="w-[5px] h-full border-r border-main-black absolute left-0" />
             <div className="flex flex-col items-center">
               <span>No.{recipeOrder}</span>
               {mainImageSrc && (
