@@ -7,22 +7,33 @@ import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import { ONBOARDING_PATH } from "@/constants/routes";
 
+const nicknameRegex = /^[a-zA-Z0-9-_.가-힣]{1,12}$/;
+const NICKNAME_ERROR_MSG = "양식에 맞춰서 닉네임을 다시 작성해주세요.";
+
 const NickNameFunnel = () => {
   const router = useRouter();
   const [nickname, setNickname] = useState<string | null>(null);
-  const goBack = () => {
-    router.back();
-  };
+  const [error, setError] = useState<string | null>(null);
 
   // 상위 state로 관리하는게 편할려나?
   const goCompleted = () => {
-    router.push(ONBOARDING_PATH + "?complete=true");
+    router.push(ONBOARDING_PATH + `?nickname=${nickname}&complete=true`);
   };
 
   const onSubmitNickname = () => {
     // Nickname API
-
     goCompleted();
+  };
+
+  const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    console.log(nicknameRegex.test(value));
+    if (!nicknameRegex.test(value)) {
+      setError(NICKNAME_ERROR_MSG);
+    } else {
+      setNickname(e.target.value);
+      setError(null);
+    }
   };
 
   // 닉네임은 공백없이 12자 이하,
@@ -30,10 +41,7 @@ const NickNameFunnel = () => {
 
   return (
     <div>
-      <div className="flex py-[18px] items-center justify-between">
-        <div className="w-6 h-6">
-          <GoBackIcon onClick={goBack} />
-        </div>
+      <div className="flex py-[18px] items-center justify-end">
         <div className="text-sm text-beige-500" onClick={goCompleted}>
           skip
         </div>
@@ -48,14 +56,15 @@ const NickNameFunnel = () => {
       <div className="pt-[15px]">
         <Input
           placeholder="닉네임을 작성해주세요."
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={onChangeNickname}
+          error={error}
         />
       </div>
       <Button
         onClick={onSubmitNickname}
         size="full"
         color="orange-fill"
-        disabled={!nickname}
+        disabled={!nickname || !!error}
       >
         작성완료
       </Button>

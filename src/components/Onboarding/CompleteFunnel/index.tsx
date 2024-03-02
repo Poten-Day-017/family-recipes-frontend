@@ -15,19 +15,25 @@ interface Props {
 const CompleteFunnel: FC<Props> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const nickname = searchParams.get("nickname");
 
-  useTimeout(() => {
+  const goToRecipeList = () => {
     router.push(RECIPES_PATH);
-  }, 5000);
+  };
+
+  useTimeout(goToRecipeList, 3000);
 
   return (
-    <div className="relative h-full flex flex-col items-center justify-center">
+    <div
+      className="relative h-full flex flex-col items-center justify-center"
+      onClick={goToRecipeList}
+    >
       <HatBackground className="absolute left-[-20px] top-[20%]" />
       <RiceBackground className="absolute right-[-20px] top-[45%]" />
       <KnifeBackground className="absolute left-[-20px] top-[70%]" />
       <span className="text-lg text-beige-500">로그인 완료!</span>
       <h3 className="text-2xl text-main-black mt-5">
-        대대손손 님,
+        {nickname ?? "대대손손"} 님,
         <br />
         환영합니다!
       </h3>
