@@ -28,6 +28,7 @@ interface Ingredient {
 interface Procedure {
   order: number;
   description: string;
+  // TODO : image 있어야 함
 }
 export interface RecipeDetailRes {
   title: string;
