@@ -4,7 +4,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   title?: string;
   explanation?: string;
-  error?: string;
+  error?: string | null;
 }
 
 const InputText = forwardRef<HTMLInputElement, Props>(
@@ -31,7 +31,7 @@ const InputText = forwardRef<HTMLInputElement, Props>(
            text-main-black
            text-sm
            outline-none
-            
+        
       `}
           ref={ref}
           {...props}
