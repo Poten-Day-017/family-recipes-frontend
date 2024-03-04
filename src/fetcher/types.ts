@@ -20,16 +20,16 @@ export interface RecipeListRes {
   recipeList: Recipe[];
 }
 
-interface Ingredient {
+export interface Ingredient {
   order: number;
   name: string;
-  amount: string;
+  amount?: string;
 }
 
-interface Procedure {
+export interface Procedure {
   order: number;
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
 }
 export interface RecipeDetailRes {
   title: string;
