@@ -8,6 +8,7 @@ import LineBackground from "@/assets/onboarding/line.svg";
 import useTimeout from "@/hooks/useTimeout";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RECIPES_PATH } from "@/constants/routes";
+import Button from "@/components/common/Button";
 
 interface Props {
   // nickname: string;
@@ -38,6 +39,11 @@ const CompleteFunnel: FC<Props> = () => {
         환영합니다!
       </h3>
       <LineBackground />
+      <div className="absolute w-full bottom-[15px]">
+        <Button size="full" onClick={goToRecipeList}>
+          대대손손 시작하기
+        </Button>
+      </div>
     </div>
   );
 };

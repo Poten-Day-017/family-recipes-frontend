@@ -1,7 +1,7 @@
 import React from "react";
 import KakaoButton from "../components/Kakao/KakaoButton";
 import Link from "next/link";
-import OnboardingLogo from "@/assets/onbording-logo.svg";
+import BookBackground from "@/assets/onboarding/book-background.svg";
 import HandWriting from "@/assets/onboarding-text.svg";
 import HandLine from "@/assets/line.svg";
 
@@ -46,8 +46,8 @@ export default function Home() {
         세상에 하나밖에 없는 <br />
         우리 가족만의 레시피북 만들기
       </p>
-      <OnboardingLogo className={"absolute right-[-16px] pt-[110px]"} />
-      <div className="absolute bottom-[-20px] w-full flex flex-col gap-3">
+      <BookBackground className={"absolute right-[-16px] top-[15%]"} />
+      <div className="absolute bottom-0 pb-[15px] w-full flex flex-col gap-3">
         <KakaoButton />
         <Link
           href={"/recipes"}
