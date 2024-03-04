@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Input from "@/components/common/Input";
-import GoBackIcon from "@/assets/icons/go-back.svg";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import { ONBOARDING_PATH } from "@/constants/routes";
@@ -14,6 +13,31 @@ const NickNameFunnel = () => {
   const router = useRouter();
   const [nickname, setNickname] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const changeButtonPosition = useCallback(() => {
+    if (window.visualViewport) {
+      const keyBoardHeight = window.innerHeight - window.visualViewport.height;
+      if (buttonRef.current) {
+        buttonRef.current.style.bottom = `${keyBoardHeight}px`;
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", changeButtonPosition);
+    }
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener(
+          "resize",
+          changeButtonPosition,
+        );
+      }
+    };
+  }, [changeButtonPosition]);
 
   // 상위 state로 관리하는게 편할려나?
   const goCompleted = () => {
@@ -36,11 +60,8 @@ const NickNameFunnel = () => {
     }
   };
 
-  // 닉네임은 공백없이 12자 이하,
-  // 기호는 -_ . 만 사용 가능합니다.
-
   return (
-    <div>
+    <div className="w-full h-full relative">
       <div className="flex py-[18px] items-center justify-end">
         <div className="text-sm text-beige-500" onClick={goCompleted}>
           skip
@@ -60,14 +81,17 @@ const NickNameFunnel = () => {
           error={error}
         />
       </div>
-      <Button
-        onClick={onSubmitNickname}
-        size="full"
-        color="orange-fill"
-        disabled={!nickname || !!error}
-      >
-        작성완료
-      </Button>
+      <div className="absolute w-full bottom-4">
+        <Button
+          onClick={onSubmitNickname}
+          size="full"
+          color="orange-fill"
+          disabled={!nickname || !!error}
+          ref={buttonRef}
+        >
+          작성완료
+        </Button>
+      </div>
     </div>
   );
 };
