@@ -62,7 +62,7 @@ export const getRecipes: GetRecipesFunc = async ({ page }) => {
 };
 
 type GetRecipeDetailFn = {
-  (id: string): Promise<RecipeDetailRes>;
+  (id: number): Promise<RecipeDetailRes>;
 };
 
 export const getRecipeDetail: GetRecipeDetailFn = async (id) => {

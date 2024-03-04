@@ -1,7 +1,6 @@
 interface Recipe {
   order: number; // 개인 별 순서
   recipeId: number; // 레시피 ID
-  cookingImageUrl: string; // 요리 대표 사진
   title: string; // 제목
   origin: string; // 주인
   content: string; // 레시피 소개
@@ -9,6 +8,8 @@ interface Recipe {
   categoryName: string; // 카테고리 명
   capacity: number; // 레시피 기준 인원
   totalOpenYn: "Y" | "N"; // 레시피 공개 여부
+  cookingImageUrl: string; // 요리 대표 사진
+  cookingVideoUrl: string; // 요리 대표 동영상
   createdAt: string; // YYYY.MM.DD 형식 날짜
 }
 
@@ -19,16 +20,16 @@ export interface RecipeListRes {
   recipeList: Recipe[];
 }
 
-interface Ingredient {
+export interface Ingredient {
   order: number;
   name: string;
-  amount: string;
+  amount?: string;
 }
 
-interface Procedure {
+export interface Procedure {
   order: number;
-  description: string;
-  // TODO : image 있어야 함
+  description?: string;
+  imageUrl?: string;
 }
 export interface RecipeDetailRes {
   title: string;
@@ -38,7 +39,6 @@ export interface RecipeDetailRes {
   categoryName: string;
   capacity: number;
   episode: string;
-  episodeOpenYn: string;
   totalOpenYn: string;
   cookingVideoUrl: string;
   cookingImageUrl: string;

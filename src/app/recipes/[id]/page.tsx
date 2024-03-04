@@ -8,6 +8,7 @@ import KakaoShareButton from "../../../components/Kakao/KakaoShareButton";
 import { Damion } from "next/font/google";
 import { Private, Public } from "@/components/Tag";
 import GoBackButton from "@/components/common/GoBackButton";
+import { notFound } from "next/navigation";
 
 const DamionFont = Damion({
   weight: "400",
@@ -15,15 +16,13 @@ const DamionFont = Damion({
   display: "swap",
 });
 
-const RecipeDetailPage = async () => {
-  const heads = headers();
-
-  const pathname = heads.get("next-url");
-  const id = pathname
-    ? pathname.split("/")[pathname.split("/").length - 1]
-    : null;
-
+const RecipeDetailPage = async ({ params }: { params: { id: number } }) => {
+  const { id } = params;
   console.log("page path: ", id);
+
+  if (!id) {
+    notFound();
+  }
 
   const {
     title,
@@ -32,14 +31,13 @@ const RecipeDetailPage = async () => {
     categoryName,
     capacity,
     episode,
-    episodeOpenYn,
     totalOpenYn,
     cookingImageUrl,
     cookingVideoUrl,
     ingredientList,
     procedureList,
     secretIngredientList,
-  } = await getRecipeDetail(id ?? "");
+  } = await getRecipeDetail(id);
 
   return (
     <div>
@@ -49,14 +47,16 @@ const RecipeDetailPage = async () => {
         right={<KakaoShareButton />}
       />
       <div className="w-full aspect-[328/220] relative rounded-base overflow-hidden border border-main-black mt-[15px] mb-[24px]">
-        <Image
-          src={cookingImageUrl}
-          alt={"main image"}
-          fill
-          className="object-cover"
-        />
+        {cookingImageUrl && (
+          <Image
+            src={cookingImageUrl}
+            alt={"main image"}
+            fill
+            className="object-cover"
+          />
+        )}
       </div>
-      {episodeOpenYn === "Y" ? <Public /> : <Private />}
+      {totalOpenYn === "Y" ? <Public /> : <Private />}
       <h2 className="text-[20px] font-bold">{title}</h2>
       <p className="text-beige-700 text-xs mt-2.4">{content}</p>
       <div className="py-2 border-y border-b-main-black mt-[15px]">
@@ -119,17 +119,17 @@ const RecipeDetailPage = async () => {
         <div className="absolute left-[-16px] px-4 w-screen bg-main-green-2 flex flex-col items-center pt-5 rounded-t-[10px]">
           <RecipeStep className="mb-[15px]" />
           <div className="w-full border-main-black border-y pb-5">
-            <div className="w-full border-beige-500 border-b">
-              {procedureList.map(({ order, description }) => {
+            <div className="w-full border-beige-500">
+              {procedureList.map(({ order, description, imageUrl }) => {
                 return (
                   <div
                     key={order}
-                    className="border-b-thin border-beige-500 flex py-5 px-2.5"
+                    className="border-b border-beige-500 flex py-5 px-2.5"
                   >
-                    {true && (
+                    {imageUrl && (
                       <>
                         <Image
-                          src={"http://via.placeholder.com/480x480"}
+                          src={imageUrl}
                           alt={description + "image"}
                           width={144}
                           height={144}

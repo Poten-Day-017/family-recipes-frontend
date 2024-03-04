@@ -8,6 +8,10 @@ import PrivateToggle from "../../../components/RecipeForm/PrivateToggleField";
 import useGetCategory from "../../../queries";
 import ImageField from "@/components/RecipeForm/ImageFormField";
 import VideoField from "@/components/RecipeForm/VideoFormField";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Ingredient, Procedure } from "@/fetcher/types";
+import Header from "@/components/Layout/Header";
 
 interface FormFieldsType {
   title: string;
@@ -16,21 +20,41 @@ interface FormFieldsType {
   categoryCode: string;
   capacity: number;
   episode: string;
-  private: boolean;
+  isOpen: boolean;
+  ingredientList: Ingredient[];
+  procedureList: Procedure[];
 }
 
+const VALIDATION_TEXT_TITLE =
+  "레시피 제목을 최소 2자 최대 30자 이내로 작성해주세요.";
+const VALIDATION_TEXT_ORIGIN = "가족 레시피를 만든 사람을 적어주세요.";
+const VALIDATION_TEXT_CATEGORY = "레시피 카테고리를 선택해주세요.";
+
+const formSchema = z.object({
+  title: z.string().min(2).max(30),
+  origin: z.string().min(1, { message: "" }),
+  content: z.string(),
+  categoryCode: z.string(),
+});
+
 const NewRecipePage = () => {
-  const methods = useForm<FormFieldsType>();
+  const methods = useForm<FormFieldsType>({
+    mode: "onBlur",
+    resolver: zodResolver(formSchema),
+  });
+
   const { handleSubmit } = methods;
   const [isPrivate, setIsPrivate] = useState(false);
 
   const {
     data: { categoryList },
   } = useGetCategory();
+
   console.log(categoryList);
 
   return (
     <div className="h-full">
+      <Header text={"My Family Recipe Write"} />
       <FormProvider {...methods}>
         <form className="">
           <PrivateToggle isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
