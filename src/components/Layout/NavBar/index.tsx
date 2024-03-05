@@ -3,11 +3,11 @@
 import React from "react";
 import Link from "next/link";
 
-import HomeIcon from "@/assets/navbar-icon/icon-home.svg";
 import CalendarIcon from "@/assets/navbar-icon/icon-calendar.svg";
 import RecipeIcon from "@/assets/navbar-icon/icon-add-recipe.svg";
-import ProfileIcon from "@/assets/navbar-icon/icon-user-mono.svg";
+import ProfileIcon from "@/assets/navbar-icon/icon-profile.svg";
 import SearchIcon from "@/assets/navbar-icon/icon-search.svg";
+import RecipeListIcon from "@/assets/navbar-icon/icon-recipe-list.svg";
 import { usePathname } from "next/navigation";
 import {
   HOME_PATH,
@@ -22,8 +22,8 @@ import {
 export const NAV_LIST = [
   {
     href: RECIPES_PATH,
-    icon: <HomeIcon className={"current-fill-svg"} />,
-    text: "홈",
+    icon: <RecipeListIcon className={"current-fill-svg"} />,
+    text: "내 레시피",
     headerTitle: "My Family Recipe Book",
   },
   {
@@ -54,8 +54,18 @@ export const NAV_LIST = [
 
 const NavBar = () => {
   const pathname = usePathname();
+  const pathRoutes = pathname.split("/");
+  const id = pathname.startsWith(RECIPES_PATH)
+    ? pathRoutes[pathRoutes.length - 1]
+    : null;
 
-  if (pathname === HOME_PATH || pathname === ONBOARDING_PATH) {
+  console.log(id);
+
+  if (
+    pathname === HOME_PATH ||
+    pathname === ONBOARDING_PATH ||
+    !isNaN(Number(id))
+  ) {
     return <div></div>;
   }
 
