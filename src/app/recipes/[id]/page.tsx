@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "@/components/Layout/Header";
 import { getRecipeDetail } from "@/fetcher";
-import { headers } from "next/headers";
 import Image from "next/image";
 import RecipeStep from "@/assets/recipe-step.svg";
 import KakaoShareButton from "../../../components/Kakao/KakaoShareButton";
@@ -118,7 +117,7 @@ const RecipeDetailPage = async ({ params }: { params: { id: number } }) => {
       <section className="w-screen relative">
         <div className="absolute left-[-16px] px-4 w-screen bg-main-green-2 flex flex-col items-center pt-5 rounded-t-[10px]">
           <RecipeStep className="mb-[15px]" />
-          <div className="w-full border-main-black border-y pb-5">
+          <div className="w-full border-main-black border-y mb-5">
             <div className="w-full border-beige-500">
               {procedureList.map(({ order, description, imageUrl }) => {
                 return (
@@ -149,7 +148,6 @@ const RecipeDetailPage = async ({ params }: { params: { id: number } }) => {
               })}
             </div>
           </div>
-          <div className="w-full h-[85px]"></div>
         </div>
       </section>
     </div>

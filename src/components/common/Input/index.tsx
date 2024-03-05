@@ -23,8 +23,7 @@ const InputText = forwardRef<HTMLInputElement, Props>(
           h-[50px]
           bg-beige-300
            pl-1
-           rounded-tr-base
-           rounded-tl-base
+           rounded-t-base
            border-b 
            ${error ? "border-b-2 border-main-error" : "border-beige-400"}
            placeholder:text-beige-500

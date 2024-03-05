@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { getRecipeDetailPath } from "@/constants/routes";
 import { Private, Public } from "@/components/Tag";
+import { Damion } from "next/font/google";
 
 interface Props {
   recipeOrder: number;
@@ -17,7 +18,38 @@ interface Props {
   date: string; // YYYY.MM.DD 형식
 }
 
-// const RecipeBook = ({}) => {};
+const DamionFont = Damion({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const BOOK_COLOR = [
+  {
+    // orange
+    mainColor: "bg-main-orange",
+    text: "text-main-black",
+    sideColor: "bg-[#DD5027]",
+  },
+  {
+    // gray
+    mainColor: "bg-beige-400",
+    text: "text-main-black",
+    sideColor: "bg-beige-600",
+  },
+  {
+    // green
+    mainColor: "bg-main-green-1",
+    text: "text-main-black",
+    sideColor: "bg-[#789342]",
+  },
+  {
+    // black
+    mainColor: "bg-main-black",
+    text: "text-white",
+    sideColor: "bg-beige-700",
+  },
+];
 
 const RecipeCard: FC<Props> = ({
   recipeOrder,
@@ -30,15 +62,36 @@ const RecipeCard: FC<Props> = ({
   recipeId,
   date,
 }) => {
+  const bookColorIdx = (recipeOrder - 1) % 4;
   return (
     <Link href={getRecipeDetailPath(recipeId)}>
-      <div className="w-full bg-beige flex items-center border-beige-400 border-t border-b border-dashed py-[8px] px-[11px]">
+      <div className="w-full bg-beige flex items-center border-main-black border-t border-b border-dashed py-[8px] px-[11px]">
         <div className="pr-[15px] flex items-center aspect-square border-r border-beige-400">
-          <div className="relative w-[100px] h-[131px] border border-main-black rounded-r-base flex justify-center items-center ">
-            <div className="w-[5px] h-full border-r border-main-black absolute left-0" />
-            <div className="flex flex-col items-center">
-              <span>No.{recipeOrder}</span>
-              {mainImageSrc && (
+          <div
+            className={
+              "relative w-[100px] h-[131px] border border-main-black rounded-r-base flex justify-center items-center " +
+              BOOK_COLOR[bookColorIdx].mainColor
+            }
+          >
+            <div
+              className={
+                "w-[5px] h-full border-r border-main-black absolute left-0 " +
+                BOOK_COLOR[bookColorIdx].sideColor
+              }
+            />
+            <div
+              className={
+                "flex flex-col items-center " + BOOK_COLOR[bookColorIdx].text
+              }
+            >
+              <span
+                className={
+                  DamionFont.className + " underline underline-offset-1 text-sm"
+                }
+              >
+                No.{recipeOrder}
+              </span>
+              {mainImageSrc ? (
                 <Image
                   src={mainImageSrc}
                   alt={title}
@@ -46,8 +99,14 @@ const RecipeCard: FC<Props> = ({
                   height={70}
                   className="border border-main-black rounded-r-base"
                 />
+              ) : (
+                <div
+                  className={
+                    "w-[70px] h-[70px] border border-main-black rounded-r-base"
+                  }
+                />
               )}
-              <span>{date}</span>
+              <span className={DamionFont.className + " text-xs"}>{date}</span>
             </div>
           </div>
         </div>
