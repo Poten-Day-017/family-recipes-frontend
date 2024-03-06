@@ -39,7 +39,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
   ) => {
     return (
       <button
-        className={`flex h-[50px] w-full justify-center items-center mt-4 rounded-[5px] transition-all
+        className={`flex h-[50px] w-full justify-center items-center mt-4 rounded-[5px] transition-all font-semibold
         ${size ? sizeOptions[size] : sizeOptions["full"]}
         ${disabled ? colorOptions["disabled"] : color ? colorOptions[color] : colorOptions["orange-stroke"]} ${className}`}
         ref={ref}

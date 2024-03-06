@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 
-.current-fill-svg  path{
+.current-fill-svg path{
     fill: currentColor;
 }
-
-
 
