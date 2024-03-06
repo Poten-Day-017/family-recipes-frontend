@@ -33,7 +33,7 @@ const CompleteFunnel: FC<Props> = () => {
       <RiceBackground className="absolute right-[-20px] top-[45%]" />
       <KnifeBackground className="absolute left-[-20px] top-[70%]" />
       <span className="text-lg text-beige-500">로그인 완료!</span>
-      <h3 className="text-2xl text-main-black mt-5">
+      <h3 className="text-2xl text-main-black mt-5 text-center font-bold">
         {nickname ?? "대대손손"} 님,
         <br />
         환영합니다!
