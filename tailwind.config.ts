@@ -6,6 +6,9 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      pretendard: ["var(--font-pretendard)"],
+    },
     fontSize: {
       "2xs": "0.625rem",
       xs: "0.75rem",

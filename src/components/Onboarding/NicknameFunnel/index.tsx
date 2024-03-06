@@ -10,11 +10,6 @@ import localFont from "next/font/local";
 const nicknameRegex = /^[a-zA-Z0-9-_.가-힣]{1,12}$/;
 const NICKNAME_ERROR_MSG = "양식에 맞춰서 닉네임을 다시 작성해주세요.";
 
-const pretendardFont = localFont({
-  src: "../../../fonts/PretendardVariable.woff2",
-  display: "swap",
-});
-
 const NickNameFunnel = () => {
   const router = useRouter();
   const [nickname, setNickname] = useState<string | null>(null);
@@ -70,7 +65,7 @@ const NickNameFunnel = () => {
   };
 
   return (
-    <div className={pretendardFont.className + " relative w-full h-full"}>
+    <div className={"relative w-full h-full"}>
       <div>
         <div className="flex py-[18px] items-center justify-end">
           <div className="text-sm text-beige-500" onClick={goCompleted}>

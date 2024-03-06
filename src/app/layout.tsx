@@ -12,9 +12,37 @@ export const metadata: Metadata = {
   description: "가족 레시피북을 만들어보세요!",
 };
 
+// NOTE: 왜 variable font는 안될까
 const pretendardFont = localFont({
-  src: "../fonts/PretendardVariable.woff2",
+  src: [
+    {
+      path: "../fonts/Pretendard-Light.woff",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Pretendard-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Pretendard-Medium.woff",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Pretendard-SemiBold.woff",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Pretendard-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   display: "swap",
+  variable: "--font-pretendard",
 });
 
 export default function RootLayout({
@@ -23,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={pretendardFont.className}>
+    <html lang="en" className={`${pretendardFont.variable} font-pretendard`}>
       <body>
         <QueryProvider>
           <AuthSession>

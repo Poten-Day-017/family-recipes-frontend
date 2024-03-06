@@ -114,8 +114,8 @@ const RecipeDetailPage = async ({ params }: { params: { id: number } }) => {
         </div>
       </section>
 
-      <section className="w-screen relative">
-        <div className="absolute left-[-16px] px-4 w-screen bg-main-green-2 flex flex-col items-center pt-5 rounded-t-[10px]">
+      <section className="w-full relative">
+        <div className="absolute left-[-16px] w-[calc(100%+32px)] px-4 bg-main-green-2 flex flex-col items-center pt-5 rounded-t-[10px]">
           <RecipeStep className="mb-[15px]" />
           <div className="w-full border-main-black border-y mb-5">
             <div className="w-full border-beige-500">
