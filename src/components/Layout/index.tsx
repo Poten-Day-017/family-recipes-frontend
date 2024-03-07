@@ -35,7 +35,7 @@ const HEADER_LIST = [
   },
   {
     href: PROFILE_PATH,
-    headerTitle: "Profile",
+    headerTitle: "My Profile",
   },
 ] as const;
 
@@ -51,7 +51,6 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
   console.log(pathname);
 
   const headerInfo = HEADER_LIST.find(({ href }) => {
-    console.log(href, pathname, href === pathname);
     return href === pathname;
   });
 

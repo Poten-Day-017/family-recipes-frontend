@@ -37,7 +37,7 @@ const Header = ({ text, left, right }: Props) => {
       font-bold py-4 ${abhayaLibre.className}`}
         >
           <div>{left}</div>
-          <h1 className="text-[22px] text-main-black">{text}</h1>
+          <h1 className="text-xl text-main-black">{text}</h1>
           <div>{right}</div>
         </div>
       </div>
