@@ -4,12 +4,9 @@ import type { FC, PropsWithChildren } from "react";
 import Header from "@/components/Layout/Header";
 import NavBar from "@/components/Layout/NavBar";
 import {
-  HOME_PATH,
-  ONBOARDING_PATH,
   PROFILE_PATH,
   RECIPES_CALENDER_PATH,
   RECIPES_CREATE_PATH,
-  RECIPES_DETAIL_PATH,
   RECIPES_PATH,
   RECIPES_SEARCH_PATH,
 } from "@/constants/routes";
@@ -58,7 +55,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     return href === pathname;
   });
 
-  if (id) {
+  if (id && !headerInfo) {
     return (
       <>
         <Header
