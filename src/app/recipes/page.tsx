@@ -13,7 +13,6 @@ export default async function RecipePage() {
 
   return (
     <div className="w-full h-full">
-      <Header text="My Family Recipe Book" />
       <div className="w-full py-5 flex flex-col gap-2.5">
         {recipeList.length === 0 && (
           <div className="pt-40">

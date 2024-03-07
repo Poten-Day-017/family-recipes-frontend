@@ -1,7 +1,11 @@
+"use client";
+
 import type { FC, PropsWithChildren } from "react";
 import Header from "@/components/Layout/Header";
 import NavBar from "@/components/Layout/NavBar";
 import {
+  HOME_PATH,
+  ONBOARDING_PATH,
   PROFILE_PATH,
   RECIPES_CALENDER_PATH,
   RECIPES_CREATE_PATH,
@@ -12,6 +16,8 @@ import {
 
 import React from "react";
 import { usePathname } from "next/navigation";
+import GoBackButton from "@/components/common/GoBackButton";
+import KakaoShareButton from "@/components/Kakao/KakaoShareButton";
 
 const HEADER_LIST = [
   {
@@ -27,10 +33,6 @@ const HEADER_LIST = [
     headerTitle: "Family Recipe Book",
   },
   {
-    href: RECIPES_DETAIL_PATH,
-    headerTitle: "Profile",
-  },
-  {
     href: RECIPES_CALENDER_PATH,
     headerTitle: "Family Calendar",
   },
@@ -43,9 +45,39 @@ const HEADER_LIST = [
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const pathname = usePathname();
 
+  const pathRoutes = pathname.split("/");
+  const id = pathname.startsWith(RECIPES_PATH)
+    ? pathRoutes[pathRoutes.length - 1]
+    : null;
+
+  console.log(id);
+  console.log(pathname);
+
+  const headerInfo = HEADER_LIST.find(({ href }) => {
+    console.log(href, pathname, href === pathname);
+    return href === pathname;
+  });
+
+  if (id) {
+    return (
+      <>
+        <Header
+          text={"Family Recipe Book Detail"}
+          left={<GoBackButton />}
+          right={<KakaoShareButton />}
+        />
+        {children}
+      </>
+    );
+  }
+
+  if (!headerInfo) {
+    return <div>{children}</div>;
+  }
+
   return (
     <div>
-      <Header text={""} />
+      <Header text={headerInfo.headerTitle} />
       {children}
       <NavBar />
     </div>

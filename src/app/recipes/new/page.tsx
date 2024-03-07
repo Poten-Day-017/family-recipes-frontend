@@ -54,7 +54,6 @@ const NewRecipePage = () => {
 
   return (
     <div className="h-full">
-      <Header text={"My Family Recipe Write"} />
       <FormProvider {...methods}>
         <form className="">
           <PrivateToggle isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
