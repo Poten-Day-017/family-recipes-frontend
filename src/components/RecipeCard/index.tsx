@@ -65,7 +65,7 @@ const RecipeCard: FC<Props> = ({
   const bookColorIdx = (recipeOrder - 1) % 4;
   return (
     <Link href={getRecipeDetailPath(recipeId)}>
-      <div className="w-full bg-beige flex items-center border-main-black border-t border-b border-dashed py-[8px] px-[11px] bg-beige">
+      <div className="w-full bg-beige-200 flex items-center border-main-black border-t border-b border-dashed py-[8px] px-[11px]">
         <div className="pr-[15px] flex items-center aspect-square border-r border-beige-400">
           <div
             className={
