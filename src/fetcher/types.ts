@@ -53,7 +53,7 @@ export interface Category {
 }
 
 export interface CategoryRes {
-  categoryList: Category;
+  categoryList: Category[];
 }
 
 export interface CreateUserBody {
