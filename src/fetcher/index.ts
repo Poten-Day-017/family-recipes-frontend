@@ -15,7 +15,7 @@ const BASE_URL = "https://daedaesonson.site/api/v1/";
 const backendFetch = httpClient({
   baseUrl: BASE_URL,
   headers: { "Content-Type": "application/json" },
-  cache: "no-store",
+  cache: "no-cache",
   interceptors: {
     request: async (url, init) => {
       console.log("********* before sending request *********");
