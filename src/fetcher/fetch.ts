@@ -56,6 +56,7 @@ export default function httpClient<T = Response>({
   ): Promise<Res> {
     const searchParams = new URLSearchParams();
 
+    let url = applyBaseUrl(input, baseUrl);
     if (init && "params" in init) {
       for (const key in init.params) {
         const value = init.params[key];
@@ -64,8 +65,8 @@ export default function httpClient<T = Response>({
       }
     }
 
-    console.log("searchParams Test: ", searchParams.toString());
-    const url = applyBaseUrl(input, baseUrl) + "?" + searchParams.toString();
+    console.log("searchParams: ", searchParams.toString());
+    url = searchParams.toString() ? url + "?" + searchParams.toString() : url;
 
     const option = { ...requestInit, ...init };
 

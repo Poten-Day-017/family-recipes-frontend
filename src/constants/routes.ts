@@ -8,7 +8,7 @@ export const RECIPES_CREATE_PATH = RECIPES_PATH + "/new";
 export const RECIPES_SEARCH_PATH = RECIPES_PATH + "/search";
 export const RECIPES_CALENDER_PATH = RECIPES_PATH + "/calender";
 
-export const RECIPES_DETAIL_PATH = `${RECIPES_PATH}/:id`;
+// export const RECIPES_DETAIL_PATH = `${RECIPES_PATH}/`;
 
 export const getRecipeDetailPath = (recipeId: number) =>
   `${RECIPES_PATH}/${recipeId}`;

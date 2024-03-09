@@ -3,15 +3,20 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
-import { useRouter } from "next/navigation";
-import { ONBOARDING_PATH } from "@/constants/routes";
-import localFont from "next/font/local";
+
+import GoBackIcon from "@/assets/icons/go-back.svg";
 
 const nicknameRegex = /^[a-zA-Z0-9-_.가-힣]{1,12}$/;
 const NICKNAME_ERROR_MSG = "양식에 맞춰서 닉네임을 다시 작성해주세요.";
 
-const NickNameFunnel = () => {
-  const router = useRouter();
+interface Props {
+  buttonText: string;
+  onNext: (nickname: string | null) => void;
+  onBack?: () => void;
+  onSkip?: () => void;
+}
+
+const NickNameFunnel = ({ buttonText, onNext, onBack, onSkip }: Props) => {
   const [nickname, setNickname] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,16 +48,7 @@ const NickNameFunnel = () => {
     };
   }, [changeButtonPosition]);
 
-  // 상위 state로 관리하는게 편할려나?
-  const goCompleted = () => {
-    router.push(ONBOARDING_PATH + `?nickname=${nickname}&complete=true`);
-  };
-
-  const onSubmitNickname = () => {
-    // Nickname API
-    goCompleted();
-  };
-
+  // 상위 state로 관리하는게 편할려나? => 재사용을 위해 상위로
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     console.log(nicknameRegex.test(value));
@@ -67,9 +63,14 @@ const NickNameFunnel = () => {
   return (
     <div className={"relative w-full h-full"}>
       <div>
-        <div className="flex py-[18px] items-center justify-end">
-          <div className="text-sm text-beige-500" onClick={goCompleted}>
-            Skip
+        <div className="flex py-[18px] items-center justify-between">
+          <div>{onBack && <GoBackIcon onClick={onBack} />}</div>
+          <div>
+            {onSkip && (
+              <div className="text-sm text-beige-500" onClick={onSkip}>
+                Skip
+              </div>
+            )}
           </div>
         </div>
         <h1 className="text-xl font-bold mt-[5px]">
@@ -88,13 +89,13 @@ const NickNameFunnel = () => {
         </div>
         <div className="absolute w-full bottom-4">
           <Button
-            onClick={onSubmitNickname}
+            onClick={() => onNext(nickname)}
             size="full"
             color="orange-fill"
             disabled={!nickname || !!error}
             ref={buttonRef}
           >
-            작성완료
+            {buttonText}
           </Button>
         </div>
       </div>

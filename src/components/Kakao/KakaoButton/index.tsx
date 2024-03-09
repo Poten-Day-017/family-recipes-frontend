@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import KakaoLogo from "@/assets/kakao-logo.svg";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
-import { useRouter } from "next/navigation";
 const KakaoButton = () => {
   return (
     <button

@@ -1,29 +1,88 @@
+"use client";
+
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import SelectField from "@/components/Select";
+import PrivateToggle from "./PrivateToggleField";
+import ImageField from "@/components/RecipeForm/ImageFormField";
+import VideoField from "@/components/RecipeForm/VideoFormField";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Ingredient, Procedure } from "@/fetcher/types";
+import TitleTextField from "@/components/RecipeForm/TitleTextField";
+import OriginTextField from "@/components/RecipeForm/OriginTextField";
+import RecipeCounterField from "./RecipeCounterField";
+import IngredientField from "@/components/RecipeForm/IngredientField";
+
+interface FormFieldsType {
+  isOpen: boolean; //: 공개 비공개 여부
+  title: string; // 제목: 필수 입력, 최소 2자, 최대 30자
+  origin: string; //주인: 필수 입력, 최대 30자
+  content: string; // 소개: 최소 2자, 최대 30자
+  categoryCode: string; // 카태고리 드롭다운
+  capacity: number; // 레시피
+  episode: string;
+  ingredientList: Ingredient[];
+  procedureList: Procedure[];
+  cookingImage: string; // 이미지 파일
+  cookingVideo: string; // 동영상 파일
+}
+
+const EMPTY_STRING = "";
+
+const VALIDATION_TEXT_TITLE =
+  "레시피 제목을 최소 2자 최대 30자 이내로 작성해주세요.";
+const VALIDATION_TEXT_ORIGIN = "가족 레시피를 만든 사람을 적어주세요.";
+const VALIDATION_TEXT_CATEGORY = "레시피 카테고리를 선택해주세요.";
+
+const formSchema = z.object({
+  isOpen: z.boolean(),
+  title: z
+    .string()
+    .min(2, { message: VALIDATION_TEXT_TITLE })
+    .max(30, { message: VALIDATION_TEXT_TITLE }),
+  origin: z.string().min(1, { message: VALIDATION_TEXT_ORIGIN }),
+  categoryCode: z.string().min(1, { message: VALIDATION_TEXT_CATEGORY }),
+  capacity: z.number().min(1),
+});
 
 const RecipeForm = () => {
+  const methods = useForm<FormFieldsType>({
+    mode: "onChange",
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      isOpen: true,
+      title: EMPTY_STRING,
+      origin: EMPTY_STRING,
+      categoryCode: EMPTY_STRING,
+      capacity: 1,
+      // episode
+      // ingredientList
+      // procedureList
+    },
+  });
+
+  const { handleSubmit } = methods;
+  const onSubmit = (data: FormFieldsType) => {
+    console.log(data);
+  };
+
   return (
-    <form>
-      <label htmlFor="title">레시피 제목</label>
-      <input type="text" id="title" />
-
-      <label htmlFor="description">레시피 소개</label>
-      <input type="text" id="description" />
-
-      <label htmlFor="owner">레시피 주인</label>
-      <input type="text" id="owner" />
-
-      <label htmlFor="main-image">대표 사진을 등록해주세요</label>
-      <input type="file" id="main-image" />
-
-      <label htmlFor="video">영상을 등록해주세요</label>
-      <input type="file" id="video" />
-
-      <label htmlFor="episode">레시피 에피소드</label>
-      <input type="textArea" id="episode" />
-
-      <label htmlFor="serving-size">몇 인분 용</label>
-      <input type="textArea" id="serving-size" />
-    </form>
+    <div className="h-full">
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <PrivateToggle />
+          <TitleTextField />
+          <OriginTextField />
+          <SelectField />
+          <ImageField />
+          <VideoField />
+          <RecipeCounterField />
+          <IngredientField />
+        </form>
+      </FormProvider>
+      <div className="w-full h-[85px]"></div>
+    </div>
   );
 };
 

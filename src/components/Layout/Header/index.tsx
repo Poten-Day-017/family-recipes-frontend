@@ -21,18 +21,27 @@ const Header = ({ text, left, right }: Props) => {
   return (
     <div>
       <div
-        className={`
-      mt-1
-      bg-beige-100 
-      sticky top-0 border-t-2 
+        className="fixed pt-1
+      max-w-[calc(768px)]
+      bg-beige-100
+      w-full
+      z-10
+      px-4
+      "
+      >
+        <div
+          className={`
+      top-0 border-t-2 
       border-b border-[#222320]
       flex items-center justify-between
-      font-bold z-10 py-4 ${abhayaLibre.className}`}
-      >
-        <div>{left}</div>
-        <h1 className="text-[22px] text-main-black">{text}</h1>
-        <div>{right}</div>
+      font-bold py-4 ${abhayaLibre.className}`}
+        >
+          <div>{left}</div>
+          <h1 className="text-xl text-main-black">{text}</h1>
+          <div>{right}</div>
+        </div>
       </div>
+      <div className="h-[68px]" />
     </div>
   );
 };
