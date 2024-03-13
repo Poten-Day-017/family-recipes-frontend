@@ -63,6 +63,7 @@ const NavBar = () => {
 
   if (
     pathname === HOME_PATH ||
+    pathname === RECIPES_CREATE_PATH ||
     pathname === ONBOARDING_PATH ||
     (pathname.startsWith(RECIPES_PATH) && !isNaN(Number(id)))
   ) {

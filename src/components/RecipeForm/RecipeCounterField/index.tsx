@@ -4,25 +4,26 @@ import PlusIcon from "@/assets/icons/plus.svg";
 import MinusIcon from "@/assets/icons/minus.svg";
 
 const MIN_COUNT = 1;
+const CAPACITY_NAME = "capacity";
 const RecipeCounterField = () => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const {
-    field: { value, onChange },
+    field: { value },
   } = useController({
-    name: "capacity",
+    name: CAPACITY_NAME,
     control,
   });
 
   console.log(value);
 
-  const onPlus = () => onChange(() => value + 1);
+  const onPlus = () => setValue(CAPACITY_NAME, value + 1);
 
   const onMinus = () => {
     if (value <= MIN_COUNT) {
       return;
     }
 
-    onChange(() => value - 1);
+    setValue(CAPACITY_NAME, value - 1);
   };
 
   return (

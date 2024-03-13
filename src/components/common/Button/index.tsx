@@ -21,7 +21,7 @@ const colorOptions = {
 };
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size: keyof typeof sizeOptions;
+  size?: keyof typeof sizeOptions;
   color?: keyof typeof colorOptions;
 }
 

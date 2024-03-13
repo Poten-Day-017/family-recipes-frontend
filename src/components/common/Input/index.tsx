@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const InputText = forwardRef<HTMLInputElement, Props>(
   ({ required, title, explanation, error, ...props }, ref) => {
     return (
-      <div className="flex flex-col pt-4">
+      <div className="flex flex-col w-full">
         {title && (
           <div className="text-[#151B1E] text-xs font-bold pb-2">
             {title}
@@ -30,6 +30,7 @@ const InputText = forwardRef<HTMLInputElement, Props>(
            text-main-black
            text-sm
            outline-none
+          
         
       `}
           ref={ref}
