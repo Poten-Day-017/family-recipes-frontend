@@ -1,6 +1,7 @@
 import { AuthOptions } from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { createNewUser } from "@/fetcher";
 
 export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -10,28 +11,39 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.KAKAO_CLIENT_SECRET ?? "",
     }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      name: "daedaesonson",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        name: { label: "username", type: "text" },
+        email: { label: "email", type: "text" },
+        picture: { label: "picture", type: "text" },
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const { name, email, picture } = credentials as {
+          name: string;
+          email: string;
+          picture: string;
+        };
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
+        try {
+          const { id, accessToken, refreshToken, isProfileCompleted } =
+            await createNewUser({
+              name,
+              email,
+              picture,
+              providerType: "KAKAO",
+              deviceToken: "empty", // 추후 알람 등 보낼 때 필요
+            });
+
+          return {
+            id: id.toString(),
+            accessToken,
+            refreshToken,
+            isProfileCompleted,
+          };
+        } catch (e) {
+          console.log(e);
           return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
     }),

@@ -9,6 +9,7 @@ import useTimeout from "@/hooks/useTimeout";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RECIPES_PATH } from "@/constants/routes";
 import Button from "@/components/common/Button";
+import useCompleteOnboard from "@/queries/mutation/useCompleteOnboard";
 
 interface Props {
   // nickname: string;

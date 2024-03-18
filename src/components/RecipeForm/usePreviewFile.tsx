@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const usePreviewFile = (): [
   previewURL: string | null,
@@ -6,15 +6,15 @@ const usePreviewFile = (): [
 ] => {
   const [previewURL, setPreviewURL] = useState<string | null>(null);
 
+  const setPreviewFileURL = useCallback((file: File | null) => {
+    setPreviewURL(file ? URL.createObjectURL(file) : null);
+  }, []);
+
   useEffect(() => {
     return () => {
       if (previewURL) URL.revokeObjectURL(previewURL);
     };
-  });
-
-  const setPreviewFileURL = (file: File | null) => {
-    setPreviewURL(file ? URL.createObjectURL(file) : null);
-  };
+  }, [previewURL]);
 
   return [previewURL, setPreviewFileURL];
 };

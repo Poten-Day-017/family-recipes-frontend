@@ -1,7 +1,20 @@
 import React from "react";
 import ProfileSettingButtonList from "@/components/Profile";
+import { getNickname } from "@/fetcher";
+import { cookies } from "next/headers";
+const ProfilePage = async () => {
+  const cookieStore = cookies();
+  console.log("cookies!!!", cookieStore.getAll());
 
-const ProfilePage = () => {
+  const userId = Number(cookieStore.get("userId")?.value);
+
+  if (!userId || isNaN(userId)) {
+    return <div></div>;
+  }
+
+  const res = await getNickname(userId);
+  console.log(res);
+
   return (
     <div>
       <div className="flex flex-col">

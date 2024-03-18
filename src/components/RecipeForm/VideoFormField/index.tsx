@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import VideoIcon from "@/assets/icons/video.svg";
 import usePreviewFile from "@/components/RecipeForm/usePreviewFile";
 import FilePReviewerField from "@/components/RecipeForm/FilePreviewer";
@@ -12,44 +12,28 @@ const VIDEO_ID = "video";
 const VIDEO_NAME = "cookingVideo";
 
 const VideoField = () => {
-  const { control, setValue, setError } = useFormContext();
-  const { field, fieldState } = useController({
-    name: "cookingVideo",
-    control,
-  });
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
-  console.log(fieldState.error?.message);
-
+  const value = watch(VIDEO_NAME);
+  console.log("video value", value);
   const [previewURL, setPreviewFileURL] = usePreviewFile();
-  console.log(previewURL);
 
   const handleRemoveVideo = () => {
     setValue(VIDEO_NAME, "");
     setPreviewFileURL(null);
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (!file) {
-      field.onChange(e);
-      setPreviewFileURL(null);
-      return;
+  useEffect(() => {
+    console.log("video error: ", errors);
+    if (value && !errors[VIDEO_NAME]) {
+      setPreviewFileURL(value[0]);
     }
-    if (!(file instanceof File)) {
-      setError(VIDEO_NAME, { message: "Expected a file" });
-      return;
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-      setError(VIDEO_NAME, {
-        message: "Max file size is 5MB.",
-      });
-      return;
-    }
-
-    setPreviewFileURL(file);
-  };
+  }, [errors, setPreviewFileURL, value]);
 
   return (
     <div>
@@ -57,10 +41,9 @@ const VideoField = () => {
         <input
           type="file"
           id={VIDEO_ID}
-          name={VIDEO_ID}
           accept="video/mp4,video/mkv, video/x-m4v,video/*"
           className="hidden"
-          onChange={handleChange}
+          {...register(VIDEO_NAME)}
         />
       }
       {previewURL ? (

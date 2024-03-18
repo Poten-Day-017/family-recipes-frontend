@@ -65,7 +65,7 @@ export interface CreateUserBody {
 }
 
 export interface UserRes {
-  isProfileCompleted: boolean;
+  isProfileCompleted: boolean; // isMember
   id: number;
   accessToken: string;
   refreshToken: string;
@@ -74,7 +74,43 @@ export interface UserRes {
 
 export interface NicknameBody {
   userId: number;
-  nickname: string;
+  userNickname: string;
 }
 
 export type NicknameRes = "string";
+
+export interface RecipeCreateRequest {
+  title: string;
+  origin: string;
+  content: string;
+  category: string;
+  capacity: number;
+  isOpen: boolean;
+  ingredientList: {
+    order: number; // 1부터 시작
+    name: string;
+    amount?: string;
+  }[];
+  secretIngredientList: {
+    order: number;
+    name: string;
+    amount?: string;
+  }[];
+  procedureList: {
+    order: number;
+    description?: string;
+  }[];
+}
+
+// NOTE: File[]
+export interface NewRecipeBody {
+  recipeCreateRequest: RecipeCreateRequest;
+  cookingImage: File | string | File[];
+  cookingVideo?: File | string | File[];
+  procedureImageList: (File | string | undefined | File[])[];
+}
+
+export interface OnBoardBody {
+  userId: number;
+  userNickname: string;
+}

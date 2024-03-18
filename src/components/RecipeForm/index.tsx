@@ -1,14 +1,14 @@
 "use client";
 
-import React from "react";
+import * as z from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectField from "@/components/Select";
 import PrivateToggle from "./PrivateToggleField";
 import ImageField from "@/components/RecipeForm/ImageFormField";
 import VideoField from "@/components/RecipeForm/VideoFormField";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Ingredient, Procedure } from "@/fetcher/types";
+
+import type { Ingredient, Procedure } from "@/fetcher/types";
 import TitleTextField from "@/components/RecipeForm/TitleTextField";
 import OriginTextField from "@/components/RecipeForm/OriginTextField";
 import RecipeCounterField from "./RecipeCounterField";
@@ -16,12 +16,17 @@ import IngredientField from "@/components/RecipeForm/IngredientField";
 import HomeIngredientField from "@/components/RecipeForm/HomeIngredientField";
 import RecipeOrderField from "@/components/RecipeForm/RecipeOrderField";
 import Button from "@/components/common/Button";
+
 import {
   EMPTY_STRING,
+  MAX_FILE_SIZE,
   VALIDATION_TEXT_CATEGORY,
+  VALIDATION_TEXT_MAX_FILE_SIZE,
   VALIDATION_TEXT_ORIGIN,
   VALIDATION_TEXT_TITLE,
 } from "@/components/RecipeForm/constants";
+import usePostNewRecipe from "@/queries/mutation/usePostNewRecipe";
+import { useRouter } from "next/navigation";
 
 export interface FormFieldsType {
   isOpen: boolean; //: 공개 비공개 여부
@@ -33,9 +38,12 @@ export interface FormFieldsType {
   episode: string;
   ingredientList: Ingredient[];
   secretIngredientList: Ingredient[];
-  procedureList: Procedure[];
-  cookingImage: File | string; //  이미지 없을 경우 -> File | 이미지 존재 -> string
-  cookingVideo: File | string; // 동영상 없을 경우 -> File | 이미지 존재 -> string
+  procedureList: {
+    description: string;
+    imageUrl?: File[] | string;
+  }[];
+  cookingImage: File[] | string; //  이미지 없을 경우 -> File | 이미지 존재 -> string
+  cookingVideo: File[] | string; // 동영상 없을 경우 -> File | 이미지 존재 -> string
 }
 
 const formSchema = z.object({
@@ -48,10 +56,35 @@ const formSchema = z.object({
   categoryCode: z.string().min(1, { message: VALIDATION_TEXT_CATEGORY }),
   capacity: z.number().min(1),
 
-  // NOTE: 파일이 아닌 스트링
-  cookingImage: z.string().min(1),
-  cookingVideo: z.string().optional(),
-
+  // NOTE: 파일
+  cookingImage: z.union([
+    z.string().min(1),
+    z
+      .any()
+      .refine((files) => files?.length > 0, "Image is required.")
+      .refine((files) => files?.[0] instanceof File, "it is not a File")
+      // .refine(
+      //   (files) => files && "size" in files?.[0],
+      //   "File size must  has size",
+      // )
+      .refine(
+        (files) => files?.[0]?.size < MAX_FILE_SIZE,
+        VALIDATION_TEXT_MAX_FILE_SIZE,
+      ),
+  ]),
+  cookingVideo: z.union([
+    z.string().optional(),
+    z
+      .any()
+      .refine((files) => files?.length > 0, "Image is required.")
+      .refine((files) => files?.[0] instanceof File, "it is not a File")
+      .refine((files) => !!files?.[0]?.size, "File size must has size")
+      .refine(
+        (files) => files?.[0]?.size < MAX_FILE_SIZE,
+        VALIDATION_TEXT_MAX_FILE_SIZE,
+      )
+      .optional(),
+  ]),
   secretIngredientList: z
     .array(
       z.object({
@@ -59,7 +92,7 @@ const formSchema = z.object({
         amount: z.string(),
       }),
     )
-    .min(1),
+    .optional(),
 
   ingredientList: z
     .array(
@@ -75,13 +108,27 @@ const formSchema = z.object({
     .array(
       z.object({
         description: z.string(),
-        imageUrl: z.string().optional(),
+        imageUrl: z.union([
+          z.string().optional(),
+          z
+            .any()
+            .refine(
+              (files) => files || files?.[0] instanceof File,
+              "it is not a File",
+            )
+            .refine(
+              (files) => files || files?.[0]?.size < MAX_FILE_SIZE,
+              VALIDATION_TEXT_MAX_FILE_SIZE,
+            )
+            .optional(),
+        ]),
       }),
     )
     .min(1),
 });
 
 const RecipeForm = () => {
+  const postMutation = usePostNewRecipe();
   const methods = useForm<FormFieldsType>({
     mode: "onChange",
     resolver: zodResolver(formSchema),
@@ -132,9 +179,55 @@ const RecipeForm = () => {
   } = methods;
 
   console.log("error!!: ", errors);
+  console.log(isValid);
+  const router = useRouter();
 
   const onSubmit = (data: FormFieldsType) => {
-    console.log("data!", data);
+    console.log(data);
+
+    const newRecipeBody = {
+      recipeCreateRequest: {
+        title: data.title,
+        origin: data.origin,
+        category: data.categoryCode,
+        isOpen: data.isOpen,
+        ingredientList: data.ingredientList.map((item, idx) => {
+          return { ...item, order: idx + 1 };
+        }),
+        secretIngredientList: data.secretIngredientList.map((item, idx) => {
+          return { ...item, order: idx + 1 };
+        }),
+        procedureList: data.procedureList.map(({ description }, idx) => {
+          return { description, order: idx + 1 };
+        }),
+        content: "",
+        capacity: data.capacity,
+      },
+      cookingImage:
+        data.cookingImage?.[0] instanceof File
+          ? (data.cookingImage[0] as File)
+          : data.cookingImage,
+      cookingVideo:
+        data.cookingVideo?.[0] instanceof File
+          ? data.cookingVideo[0]
+          : data.cookingVideo,
+      procedureImageList: data.procedureList.map(({ imageUrl }) =>
+        imageUrl?.[0] instanceof File ? imageUrl[0] : imageUrl,
+      ),
+    };
+
+    // newRecipeBody.cookingImage = newRecipeBody.cookingImage as File | string;
+    // newRecipeBody.cookingVideo = newRecipeBody.cookingVideo as File | string;
+
+    postMutation.mutate(newRecipeBody, {
+      onSuccess: (data) => {
+        console.log(data);
+        router.push("/recipes");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (

@@ -9,7 +9,6 @@ import { RECIPES_CREATE_PATH } from "@/constants/routes";
 
 export default async function RecipePage() {
   const { recipeList } = await getRecipes({ page: 1 });
-  console.log("recipeList: ", recipeList);
 
   return (
     <div className="w-full h-full">
