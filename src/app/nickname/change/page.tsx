@@ -19,7 +19,7 @@ const NicknameChangePage = () => {
         mutation.mutate(
           {
             userId: 1,
-            nickname: nickname ?? "대대손손",
+            userNickname: nickname ?? "대대손손",
           },
           {
             onSuccess: (data) => {

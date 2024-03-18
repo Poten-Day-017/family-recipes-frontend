@@ -9,6 +9,7 @@ const PLACE_HOLDER_TEXT = "레시피 카테고리";
 // NOTE: unControl도 되는지 찾아보기
 const SelectField = () => {
   const { control } = useFormContext();
+
   const {
     field: { value, onChange },
     fieldState: { error, isDirty, isTouched },

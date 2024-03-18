@@ -8,6 +8,8 @@ import { Damion } from "next/font/google";
 import { Private, Public } from "@/components/Tag";
 import GoBackButton from "@/components/common/GoBackButton";
 import { notFound } from "next/navigation";
+import Slider from "react-slick";
+import RecipeDetailCarousel from "@/components/RecipeDetail/RecipeDetailCarousel";
 
 const DamionFont = Damion({
   weight: "400",
@@ -37,19 +39,15 @@ const RecipeDetailPage = async ({ params }: { params: { id: number } }) => {
     secretIngredientList,
   } = await getRecipeDetail(id);
 
+  console.log(cookingVideoUrl);
+
   return (
     <>
       <div>
-        <div className="w-full aspect-[328/220] relative rounded-base overflow-hidden border border-main-black mt-[15px] mb-[24px]">
-          {cookingImageUrl && (
-            <Image
-              src={cookingImageUrl}
-              alt={"main image"}
-              fill
-              className="object-cover"
-            />
-          )}
-        </div>
+        <RecipeDetailCarousel
+          cookingImageUrl={cookingImageUrl}
+          cookingVideoUrl={cookingVideoUrl}
+        />
         {totalOpenYn === "Y" ? <Public /> : <Private />}
         <h2 className="text-[20px] font-bold">{title}</h2>
         <p className="text-beige-700 text-xs mt-2.4">{content}</p>
