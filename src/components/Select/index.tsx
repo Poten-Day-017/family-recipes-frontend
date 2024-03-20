@@ -6,34 +6,33 @@ import { useController, useFormContext } from "react-hook-form";
 
 const PLACE_HOLDER_TEXT = "레시피 카테고리";
 
-// NOTE: unControl도 되는지 찾아보기
+// NOTE: uncontrol도 되는지 찾아보기
+// TODO: 여기 왜 any로 추론되는지 찾아보기
 const SelectField = () => {
   const { control } = useFormContext();
 
   const {
     field: { value, onChange },
-    fieldState: { error, isDirty, isTouched },
   } = useController({
     control,
-    name: "categoryCode",
+    name: "category",
   });
   const { data } = useGetCategory();
   console.log(value);
-  console.log(value === "");
 
   return (
     <div className="py-4 text-sm">
       <div className="text-[#151B1E] text-xs pb-2">
         카테고리
-        {<span className="text-[#F7744C]"> *</span>}
+        <span className="text-[#F7744C]"> *</span>
       </div>
       <Listbox value={value} onChange={onChange}>
         <Listbox.Button
           className="w-full h-12 rounded-[5px] px-2
-        border border-beige-400 flex items-center justify-between "
+        border border-beige-400 flex items-center justify-between"
         >
           <span className="text-beige-500">
-            {value ? value : PLACE_HOLDER_TEXT}
+            {value ? value.name : PLACE_HOLDER_TEXT}
           </span>
           <div className="w-5 h-5 flex items-center justify-center">
             <DropDown />
@@ -41,13 +40,13 @@ const SelectField = () => {
         </Listbox.Button>
         <Listbox.Options className="mt-2.5 bg-beige-200 py-1 px-1.5 rounded-[5px] cursor-pointer">
           {data &&
-            data.categoryList.map(({ code, name }) => (
+            data.categoryList.map((category) => (
               <Listbox.Option
                 className="pl-4 flex items-center h-12 m-2 rounded-[5px] hover:bg-[#E1E8C9]"
-                key={code}
-                value={name}
+                key={category.code}
+                value={category}
               >
-                {name}
+                {category.name}
               </Listbox.Option>
             ))}
         </Listbox.Options>

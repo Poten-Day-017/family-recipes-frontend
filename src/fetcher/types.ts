@@ -4,7 +4,7 @@ interface Recipe {
   title: string; // 제목
   origin: string; // 주인
   content: string; // 레시피 소개
-  category: string; // 카테고리 코드
+  category: string; // 카테고리
   categoryName: string; // 카테고리 명
   capacity: number; // 레시피 기준 인원
   totalOpenYn: "Y" | "N"; // 레시피 공개 여부
@@ -77,7 +77,11 @@ export interface NicknameBody {
   userNickname: string;
 }
 
-export type NicknameRes = "string";
+export interface NicknameRes {
+  userId: number;
+  userNickname: string;
+  numberOfRecipes: number;
+}
 
 export interface RecipeCreateRequest {
   title: string;
@@ -102,7 +106,7 @@ export interface RecipeCreateRequest {
   }[];
 }
 
-// NOTE: File[]
+// NOTE: File[] 아님
 export interface NewRecipeBody {
   recipeCreateRequest: RecipeCreateRequest;
   cookingImage: File | string | File[];

@@ -1,4 +1,5 @@
 "use client";
+import { useOverlay } from "@toss/use-overlay";
 
 import type { FC, PropsWithChildren } from "react";
 import Header from "@/components/Layout/Header";
@@ -21,13 +22,14 @@ const HEADER_LIST = [
     href: RECIPES_PATH,
     headerTitle: "My Family Recipe Book",
   },
+
   {
     href: RECIPES_SEARCH_PATH,
     headerTitle: "Family Recipe Search",
   },
   {
     href: RECIPES_CREATE_PATH,
-    headerTitle: "Family Recipe Book",
+    headerTitle: "Family Recipe Book Write",
   },
   {
     href: RECIPES_CALENDER_PATH,
@@ -40,6 +42,7 @@ const HEADER_LIST = [
 ] as const;
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
+  const overlay = useOverlay();
   const pathname = usePathname();
 
   const pathRoutes = pathname.split("/");
@@ -69,6 +72,15 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
   if (!headerInfo) {
     return <div>{children}</div>;
+  }
+
+  if (headerInfo.href === RECIPES_CREATE_PATH) {
+    return (
+      <>
+        <Header text={headerInfo.headerTitle} left={<GoBackButton />} />
+        {children}
+      </>
+    );
   }
 
   return (

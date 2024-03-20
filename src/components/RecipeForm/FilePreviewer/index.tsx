@@ -13,7 +13,7 @@ const FilePReviewerField: FC<Props> = ({
   previewURL,
   handleRemoveFile,
 }) => {
-  console.log("previewURL: ", previewURL);
+  // console.log("previewURL: ", previewURL);
 
   return (
     <div

@@ -6,9 +6,7 @@ import {
   PROTECTED_ROUTES,
   RECIPES_PATH,
 } from "@/constants/routes";
-import { createNewUser, logIn } from "@/fetcher";
-import { cookies } from "next/headers";
-import { signIn } from "next-auth/react";
+import { logIn } from "@/fetcher";
 
 // 이 함수는 async - await를 사용할 수 있다.
 export async function middleware(request: NextRequest) {

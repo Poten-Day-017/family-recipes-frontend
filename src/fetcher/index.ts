@@ -3,10 +3,10 @@ import type {
   CreateUserBody,
   NewRecipeBody,
   NicknameBody,
-  NicknameRes,
   RecipeDetailRes,
   RecipeListRes,
   UserRes,
+  NicknameRes,
 } from "@/fetcher/types";
 import { notFound } from "next/navigation";
 import httpClient from "@/fetcher/fetch";
@@ -113,8 +113,8 @@ type PutNicknameFn = {
 
 export const putNickname: PutNicknameFn = async ({ userId, userNickname }) => {
   try {
-    const response = await backendFetch(`/users/${userId}/nickname`, {
-      method: "PUT",
+    const response = await backendFetch(`users/nickname`, {
+      method: "POST",
       body: JSON.stringify({
         userId,
         userNickname,
@@ -229,13 +229,56 @@ export const completeOnboard = async (onboardBody: OnBoardBody) => {
   }
 };
 
-export const getNickname = async (id?: number) => {
+export const getNickname = async (id: number) => {
   if (!id) {
     throw Error("need id");
   }
 
   try {
-    const response = await backendFetch(`users/${id}`, {
+    const response = await backendFetch<NicknameRes>(`users/${id}`, {
+      method: "GET",
+    });
+
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const localFetch = httpClient({
+  baseUrl: "http://localhost:3000/api/",
+  headers: { "Content-Type": "application/json" },
+  cache: "no-cache",
+  interceptors: {
+    request: async (url, init) => {
+      console.log("********* before sending request *********");
+      console.log("url: ", url.toString());
+      console.log("requestInit:", init);
+
+      return init;
+    },
+    response: async (response) => {
+      console.log("********* after receiving response *********");
+      console.log("response: ", response);
+      console.log("is it ok?: ", response.ok);
+
+      if (!response.ok) {
+        if (400 <= response.status && response.status < 500) {
+          console.log("ClientError: ", response.status);
+        } else {
+          console.error("ServerError : ", response.status);
+        }
+        throw Error(response.status + response.statusText);
+      }
+
+      return response.json();
+    },
+  },
+});
+
+export const getUserId = async () => {
+  try {
+    const response = await localFetch<NicknameRes>(`user`, {
       method: "GET",
     });
 

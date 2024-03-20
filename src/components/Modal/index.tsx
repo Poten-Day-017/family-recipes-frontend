@@ -1,25 +1,29 @@
-import type {
-  FC,
-  PropsWithChildren,
-  ReactElement,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { createContext, useState } from "react";
+import React, { FC } from "react";
 
-const ModalsContext = createContext<ReactElement[]>([]);
-const DispatchModalContext = createContext<
-  Dispatch<SetStateAction<ReactElement[]>>
->(() => {});
-const ModalContext: FC<PropsWithChildren> = ({ children }) => {
-  const [modals, setModals] = useState<ReactElement[]>([]);
-  const handleClose = () => {};
-
+interface Props {
+  title: string;
+  description?: string;
+  LeftComponent?: React.ReactNode;
+  RightComponent?: React.ReactNode;
+}
+const Modal: FC<Props> = ({
+  title,
+  description,
+  LeftComponent,
+  RightComponent,
+}) => {
   return (
-    <DispatchModalContext.Provider value={setModals}>
-      <ModalsContext.Provider value={modals}>{children}</ModalsContext.Provider>
-    </DispatchModalContext.Provider>
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div className="py-[30px] px-[17px] h-[182px] rounded-base bg-beige-200 border border-main-black">
+        <p className="text-bold">{title}</p>
+        <p className="text-xs text-beige-700 mt-[12px]">{description}</p>
+        <div className="flex gap-2.5">
+          {LeftComponent}
+          {RightComponent}
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default ModalContext;
+export default Modal;

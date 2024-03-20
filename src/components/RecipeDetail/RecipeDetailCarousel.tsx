@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
 
 interface SliderPaginationProps {
   current: number;
@@ -72,6 +71,7 @@ const RecipeDetailCarousel: FC<Props> = ({
         </div>
         <div className="relative w-full aspect-[328/220] rounded-base overflow-hidden border border-main-black mt-[15px] mb-[24px]">
           <video
+            controls
             src={cookingVideoUrl}
             className="object-cover w-full aspect-[328/220]"
           />

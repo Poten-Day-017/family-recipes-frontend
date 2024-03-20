@@ -7,7 +7,7 @@ import QueryProvider from "@/providers/queryProvider";
 import KakaoShareScript from "../components/Kakao/KakaoShareScript";
 import localFont from "next/font/local";
 import Layout from "@/components/Layout";
-import { OverlayProvider } from "@toss/use-overlay";
+import OverlayProvider from "@/providers/OverlayProvider";
 
 export const metadata: Metadata = {
   title: "대대손손",
@@ -55,9 +55,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendardFont.variable} font-pretendard`}>
       <body>
-        <OverlayProvider>
-          <QueryProvider>
-            <AuthSession>
+        <QueryProvider>
+          <AuthSession>
+            <OverlayProvider>
               <div className="flex justify-center h-screen overflow-hidden">
                 <div className="w-full h-screen overflow-y-scroll overflow-x-hidden max-w-screen-md bg-beige-100 text-main-black">
                   <Layout>
@@ -65,10 +65,10 @@ export default function RootLayout({
                   </Layout>
                 </div>
               </div>
-            </AuthSession>
-            <KakaoShareScript />
-          </QueryProvider>
-        </OverlayProvider>
+            </OverlayProvider>
+          </AuthSession>
+          <KakaoShareScript />
+        </QueryProvider>
       </body>
     </html>
   );

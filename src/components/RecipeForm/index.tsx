@@ -8,7 +8,7 @@ import ImageField from "@/components/RecipeForm/ImageFormField";
 import VideoField from "@/components/RecipeForm/VideoFormField";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import type { Ingredient, Procedure } from "@/fetcher/types";
+import type { Ingredient } from "@/fetcher/types";
 import TitleTextField from "@/components/RecipeForm/TitleTextField";
 import OriginTextField from "@/components/RecipeForm/OriginTextField";
 import RecipeCounterField from "./RecipeCounterField";
@@ -27,13 +27,14 @@ import {
 } from "@/components/RecipeForm/constants";
 import usePostNewRecipe from "@/queries/mutation/usePostNewRecipe";
 import { useRouter } from "next/navigation";
+import { Category } from "@/fetcher/types";
 
 export interface FormFieldsType {
   isOpen: boolean; //: 공개 비공개 여부
   title: string; // 제목: 필수 입력, 최소 2자, 최대 30자
   origin: string; //주인: 필수 입력, 최대 30자
   content: string; // 소개: 최소 2자, 최대 30자
-  categoryCode: string; // 카태고리 드롭다운
+  category: Category; // 카태고리 드롭다운
   capacity: number; // 레시피
   episode: string;
   ingredientList: Ingredient[];
@@ -53,9 +54,11 @@ const formSchema = z.object({
     .min(2, { message: VALIDATION_TEXT_TITLE })
     .max(30, { message: VALIDATION_TEXT_TITLE }),
   origin: z.string().min(1, { message: VALIDATION_TEXT_ORIGIN }),
-  categoryCode: z.string().min(1, { message: VALIDATION_TEXT_CATEGORY }),
+  category: z.object({
+    code: z.string().min(1, { message: VALIDATION_TEXT_CATEGORY }),
+    name: z.string().min(1, { message: VALIDATION_TEXT_CATEGORY }),
+  }),
   capacity: z.number().min(1),
-
   // NOTE: 파일
   cookingImage: z.union([
     z.string().min(1),
@@ -136,7 +139,6 @@ const RecipeForm = () => {
       isOpen: true,
       title: EMPTY_STRING,
       origin: EMPTY_STRING,
-      categoryCode: EMPTY_STRING,
       capacity: 1,
       // episode
       ingredientList: [
@@ -180,16 +182,17 @@ const RecipeForm = () => {
 
   console.log("error!!: ", errors);
   console.log(isValid);
+
   const router = useRouter();
 
   const onSubmit = (data: FormFieldsType) => {
-    console.log(data);
+    console.log("카테고리: ", data.category);
 
     const newRecipeBody = {
       recipeCreateRequest: {
         title: data.title,
         origin: data.origin,
-        category: data.categoryCode,
+        category: data.category.code,
         isOpen: data.isOpen,
         ingredientList: data.ingredientList.map((item, idx) => {
           return { ...item, order: idx + 1 };

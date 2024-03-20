@@ -1,7 +1,7 @@
 import { AuthOptions } from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { createNewUser } from "@/fetcher";
+import { logIn } from "@/fetcher";
 
 export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
 
         try {
           const { id, accessToken, refreshToken, isProfileCompleted } =
-            await createNewUser({
+            await logIn({
               name,
               email,
               picture,
